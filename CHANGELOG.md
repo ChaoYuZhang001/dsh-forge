@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0-alpha.2 - 2026-08-18
+
+- Pinned the DSH Desktop Community Market 1.0.0 source and provider-page schemas to a reviewed Desktop commit.
+- Added strict AJV and semantic conformance tests for generated catalog output and hostile provider input.
+- Added the plugin-author, market-operator, and release adoption path documentation.
+- Added an opt-in GitHub Pages workflow for publishing the catalog Provider after Pages is enabled and its HTTPS responses are verified.
+- Kept npm publication, profile installation, and live Provider availability as separate release gates.
+
 ## 0.4.0-alpha.1 - 2026-08-18
 
 - Renamed the public package and Action identity to `dsh-gate`.

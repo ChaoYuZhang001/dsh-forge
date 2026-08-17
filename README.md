@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.1
+      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.2
         with:
           target: .
           github-token: ${{ github.token }}
@@ -131,7 +131,7 @@ See [SECURITY.md](SECURITY.md), [CONTRIBUTING.md](CONTRIBUTING.md), and [docs/re
 
 ## Status
 
-`v0.4.0-alpha.1` adds the compatibility matrix and a generated Desktop Catalog Provider payload on top of immutable GitHub provenance. The pinned Desktop wire schemas are tested with AJV conformance fixtures. It does not install plugins, mutate a DSH profile, or publish a live catalog endpoint. Transactional profile installation, rollback, and the desktop operator will build on this Receipt contract in later releases.
+`v0.4.0-alpha.2` adds the compatibility matrix, pinned Desktop wire schemas, strict conformance fixtures, adoption documentation, and an opt-in Pages deployment workflow on top of immutable GitHub provenance. It does not install plugins, mutate a DSH profile, or claim a live catalog endpoint until Pages and HTTPS response checks are complete.
 
 ## License
 

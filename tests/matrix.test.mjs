@@ -43,7 +43,7 @@ test('renders a Desktop Catalog Provider page with visible verification status',
   const matrix = {
     schemaVersion: '0.1',
     generatedAt: '2026-08-18T00:00:00.000Z',
-    generator: { name: 'dsh-gate', version: '0.4.0-alpha.1' },
+    generator: { name: 'dsh-gate', version: '0.4.0-alpha.2' },
     baseline: { dshVersion: '0.1.0-rc.7', platform: 'linux-x64' },
     counts: { pass: 0, warn: 1, fail: 0, error: 0 },
     entries: [{
@@ -56,7 +56,7 @@ test('renders a Desktop Catalog Provider page with visible verification status',
       receipt: {
         schemaVersion: '0.3',
         generatedAt: '2026-08-18T00:00:00.000Z',
-        verifier: { name: 'dsh-gate', version: '0.4.0-alpha.1' },
+        verifier: { name: 'dsh-gate', version: '0.4.0-alpha.2' },
         target: { kind: 'github', reference: 'https://github.com/example/healthy', packagePath: 'package.json', commitSha: 'a'.repeat(40), license: 'MIT', archived: false },
         baseline: { dshVersion: '0.1.0-rc.7', platform: 'linux-x64' },
         plugin: { id: 'example-plugin', version: '1.0.0', description: 'Example', permissions: ['network'] },
