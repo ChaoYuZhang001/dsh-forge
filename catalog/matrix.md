@@ -18,5 +18,5 @@ Counts: 0 pass / 9 warn / 3 fail / 0 error
 | [dsh-plugin-market](https://github.com/NanmiCoder/dsh-plugin-market) | **WARN** | @nanmicoder/dsh-plugin-market@0.2.0 | `a99ee42831fe` | package.json | 1 |
 | [dsh-vision](https://github.com/oil-oil/dsh-vision) | **FAIL** | @oil-oil/dsh-vision@0.1.0 | `a12800eeb02e` | package.json | 16 |
 | [dsh-plugin-development](https://github.com/w2112515/dsh-plugin-development) | **WARN** | dsh-plugin-development@0.2.0-beta.1 | `4dab80cbeb86` | package.json | 2 |
-| [dsh-plugin-marketplace](https://github.com/w2112515/dsh-plugin-marketplace) | **WARN** | @w2112515/dsh-plugin-marketplace@0.2.0 | `511d525cf0c0` | package.json | 2 |
+| [dsh-plugin-marketplace](https://github.com/w2112515/dsh-plugin-marketplace) | **WARN** | @w2112515/dsh-plugin-marketplace@0.2.1 | `8d95433af3b5` | package.json | 2 |
 | [weshop-dsh-plugin](https://github.com/weshopai/weshop-dsh-plugin) | **WARN** | weshop-dsh-plugin@1.0.1 | `bb01658c4707` | package.json | 3 |

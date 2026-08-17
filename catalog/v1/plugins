@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "generatedAt": "2026-08-18T00:00:00.000Z",
-  "revision": "dsh-gate-0.4.0-alpha.1",
+  "revision": "dsh-gate-0.4.0-alpha.2",
   "items": [
     {
       "id": "chenw2759-wq-dsh-plugin-healthcheck",
@@ -399,7 +399,7 @@
       "displayName": "dsh-plugin-marketplace",
       "summary": "DSH Gate WARN: Out-of-tree installable plugin marketplace bundle for DeepSeek Harness",
       "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 2 finding(s) require review before installation. A passing or warning result is not a security audit.",
-      "latestVersion": "0.2.0",
+      "latestVersion": "0.2.1",
       "categories": [
         "market",
         "verification.warn"
