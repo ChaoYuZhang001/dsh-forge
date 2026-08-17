@@ -20,9 +20,13 @@ inputs:
     required: false
     default: ''
   ref:
-    description: Branch, tag, or commit used for a GitHub repository target.
+    description: Optional branch, tag, or commit used for a GitHub repository target.
     required: false
-    default: main
+    default: ''
+  package-path:
+    description: Optional plugin directory or package.json path inside a monorepo.
+    required: false
+    default: ''
   smoke:
     description: Run npm pack --dry-run with lifecycle scripts disabled for local targets.
     required: false
@@ -67,11 +71,18 @@ runs:
         DSH_FORGE_DSH_VERSION: ${{ inputs.dsh-version }}
         DSH_FORGE_PLATFORM: ${{ inputs.platform }}
         DSH_FORGE_REF: ${{ inputs.ref }}
+        DSH_FORGE_PACKAGE_PATH: ${{ inputs.package-path }}
         DSH_FORGE_SMOKE: ${{ inputs.smoke }}
         DSH_FORGE_RECEIPT_PATH: ${{ inputs.receipt-path }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
       run: |
-        args=(verify "$DSH_FORGE_TARGET" --dsh-version "$DSH_FORGE_DSH_VERSION" --ref "$DSH_FORGE_REF")
+        args=(verify "$DSH_FORGE_TARGET" --dsh-version "$DSH_FORGE_DSH_VERSION")
+        if [[ -n "$DSH_FORGE_REF" ]]; then
+          args+=(--ref "$DSH_FORGE_REF")
+        fi
+        if [[ -n "$DSH_FORGE_PACKAGE_PATH" ]]; then
+          args+=(--path "$DSH_FORGE_PACKAGE_PATH")
+        fi
         if [[ -n "$DSH_FORGE_PLATFORM" ]]; then
           args+=(--platform "$DSH_FORGE_PLATFORM")
         fi

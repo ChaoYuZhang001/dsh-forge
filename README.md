@@ -13,6 +13,8 @@ DSH Forge checks a plugin before it is installed into a real profile:
 - applies the prerelease rule needed by DSH `rc` versions;
 - reads declared and high-signal inferred permissions;
 - records source provenance and platform compatibility;
+- resolves immutable commit and package blob provenance for GitHub targets;
+- discovers a unique plugin package in `packages/`, `plugins/`, or `apps/`;
 - optionally runs `npm pack --dry-run --ignore-scripts` for a local package;
 - emits a normalized JSON Receipt without absolute machine paths or user data.
 
@@ -25,6 +27,7 @@ npm install
 npm run build
 node dist/cli/main.js verify fixtures/public/healthy-plugin --smoke
 node dist/cli/main.js verify https://github.com/owner/plugin --dsh-version 0.1.0-rc.7 --json receipt.json
+node dist/cli/main.js verify https://github.com/owner/monorepo --path packages/plugin --json receipt.json
 ```
 
 The default baseline is `0.1.0-rc.7`, pinned to the public DSH tag `dsh-v0.1.0-rc.7`.
@@ -34,6 +37,21 @@ For GitHub API rate limits, set a read-only `GITHUB_TOKEN` in the environment. T
 ```sh
 GITHUB_TOKEN=... node dist/cli/main.js verify https://github.com/owner/plugin
 ```
+
+## Monorepos
+
+When the repository root is not a DSH plugin, DSH Forge scans package manifests under `packages/`, `plugins/`, and `apps/`. One DSH candidate is selected automatically. Multiple candidates fail with their paths so the workflow cannot silently verify the wrong plugin.
+
+Select a package explicitly with either form:
+
+```sh
+node dist/cli/main.js verify https://github.com/owner/repository --ref main --path packages/plugin
+node dist/cli/main.js verify https://github.com/owner/repository/tree/main/packages/plugin
+```
+
+The tree URL form treats the first segment after `/tree/` as the ref. For branch names containing `/`, use the repository URL with separate `--ref` and `--path` options.
+
+GitHub Receipts record the requested ref, resolved commit SHA, selected `package.json` path and blob SHA, numeric repository ID, SPDX license, and archived state. Remote source is read as data only; discovery never runs repository code.
 
 ## GitHub Action
 
@@ -55,7 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ChaoYuZhang001/dsh-forge@v0.2.0-alpha.1
+      - uses: ChaoYuZhang001/dsh-forge@v0.3.0-alpha.1
         with:
           target: .
           github-token: ${{ github.token }}
@@ -71,7 +89,7 @@ See [SECURITY.md](SECURITY.md), [CONTRIBUTING.md](CONTRIBUTING.md), and [docs/re
 
 ## Status
 
-`v0.2.0-alpha.1` adds a reusable GitHub Action to the static verifier and safe package dry-run. It does not yet install plugins or mutate a DSH profile. Transactional profile installation, rollback, and the desktop operator will build on this Receipt contract in later releases.
+`v0.3.0-alpha.1` adds deterministic monorepo package selection and immutable GitHub provenance to the reusable Action. It does not yet install plugins or mutate a DSH profile. Transactional profile installation, rollback, and the desktop operator will build on this Receipt contract in later releases.
 
 ## License
 
