@@ -55,9 +55,18 @@ deployment must copy `catalog/manifest.json` to `manifest.json` and
 manifest URL to users until those URLs have been checked from the same network
 boundary as Desktop.
 
-The included workflow performs that copy and validates both JSON documents, but
-it cannot enable Pages or create a custom domain. Those are repository-owner
-operations and must be verified separately.
+The included workflow performs that copy, deploys the files, and then runs the
+same anonymous HTTPS smoke used for release verification. GitHub Pages serves
+extensionless files as `application/octet-stream`, so the standard
+`/v1/plugins` endpoint currently fails closed after deployment. Use a host or
+edge configuration that can set `Content-Type: application/json`; do not weaken
+the Desktop contract or rename the standard endpoint to make a static host pass.
+
+Verify any candidate host from the repository root:
+
+```sh
+npm run verify:provider -- https://host/path/manifest.json
+```
 
 The Desktop host remains responsible for source selection, caching, install
 confirmation, and profile changes. DSH Gate only supplies evidence. `FAIL`
