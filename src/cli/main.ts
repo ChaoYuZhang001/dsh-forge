@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import { writeFile } from 'node:fs/promises'
+import { writeFile, mkdir } from 'node:fs/promises'
+import path from 'node:path'
 import process from 'node:process'
 import { loadTarget } from '../verifier/target.js'
 import { verifyTarget } from '../verifier/verify.js'
-
-const VERSION = '0.1.0-alpha.1'
+import { VERSION } from '../version.js'
 
 function usage(): string {
   return `dsh-forge ${VERSION}
@@ -18,6 +18,7 @@ Options:
   --ref <git-ref>           GitHub branch or tag (default: main)
   --smoke                   Run npm pack --dry-run with lifecycle scripts disabled
   --json <path>             Write the complete JSON Receipt to a file
+  --version                 Print the DSH Forge version
   --help                    Show this help
 `
 }
@@ -49,6 +50,10 @@ function printReceipt(receipt: Awaited<ReturnType<typeof verifyTarget>>): void {
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2)
+  if (hasOption(args, '--version')) {
+    console.log(VERSION)
+    return
+  }
   if (!args.length || hasOption(args, '--help')) {
     console.log(usage())
     return
@@ -69,6 +74,7 @@ async function main(): Promise<void> {
     printReceipt(receipt)
     const jsonPath = optionValue(args, '--json', '')
     if (jsonPath) {
+      await mkdir(path.dirname(path.resolve(jsonPath)), { recursive: true })
       await writeFile(jsonPath, `${JSON.stringify(receipt, null, 2)}\n`, 'utf8')
       console.log(`JSON Receipt: ${jsonPath}`)
     }

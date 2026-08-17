@@ -1,0 +1,7 @@
+export { loadTarget } from './verifier/target.js';
+export { verifyTarget } from './verifier/verify.js';
+export { satisfiesRange, parseVersion, compareVersions } from './verifier/semver.js';
+export { allowedPermissions, readPluginManifest } from './manifest/schema.js';
+export { VERSION } from './version.js';
+export { renderActionSummary } from './action/report.js';
+//# sourceMappingURL=index.js.map

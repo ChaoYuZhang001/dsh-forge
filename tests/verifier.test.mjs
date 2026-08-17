@@ -1,6 +1,12 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { loadTarget, satisfiesRange, verifyTarget } from '../dist/index.js'
+import { readFile } from 'node:fs/promises'
+import { loadTarget, renderActionSummary, satisfiesRange, verifyTarget, VERSION } from '../dist/index.js'
+
+test('uses package.json as the single version source', async () => {
+  const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
+  assert.equal(VERSION, packageJson.version)
+})
 
 test('accepts an explicit prerelease comparator for DSH rc.7', () => {
   assert.equal(satisfiesRange('0.1.0-rc.7', '>=0.1.0-rc.1 <0.1.0 || >=0.1.0-rc.1 <0.2.0-0'), true)
@@ -18,6 +24,7 @@ test('healthy fixture produces a passing receipt', async () => {
     smoke: true
   })
   assert.equal(receipt.status, 'pass')
+  assert.equal(receipt.verifier.version, VERSION)
   assert.equal(receipt.plugin?.id, 'dsh-forge-fixture-healthy')
   assert.equal(receipt.checks.find((check) => check.id === 'package.pack-smoke')?.status, 'pass')
 })
@@ -32,4 +39,19 @@ test('incompatible fixture fails without executing install code', async () => {
   assert.equal(receipt.status, 'fail')
   assert.ok(receipt.findings.some((finding) => finding.code === 'manifest.client-only'))
   assert.ok(receipt.findings.some((finding) => finding.code === 'dsh.peer-range-failed'))
+})
+
+test('renders a complete and escaped GitHub Actions summary', async () => {
+  const target = await loadTarget('fixtures/public/healthy-plugin')
+  const receipt = await verifyTarget(target, {
+    dshVersion: '0.1.0-rc.7',
+    platform: 'linux-x64',
+    smoke: false
+  })
+  receipt.checks[0].summary = 'safe | readable'
+  const summary = renderActionSummary(receipt)
+  assert.match(summary, /### DSH Forge Receipt/)
+  assert.match(summary, /dsh-forge-fixture-healthy@1\.0\.0/)
+  assert.match(summary, /safe \\| readable/)
+  assert.match(summary, /Static verification only/)
 })

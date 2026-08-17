@@ -1,0 +1,1 @@
+{"version":3,"file":"schema.d.ts","sourceRoot":"","sources":["../../src/manifest/schema.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAiB,cAAc,EAAE,OAAO,EAAE,MAAM,aAAa,CAAA;AA8BzE,wBAAgB,kBAAkB,CAAC,WAAW,EAAE,MAAM,CAAC,MAAM,EAAE,OAAO,CAAC,GAAG;IACxE,QAAQ,CAAC,EAAE,cAAc,CAAA;IACzB,QAAQ,EAAE,OAAO,EAAE,CAAA;CACpB,CAkFA;AAED,wBAAgB,kBAAkB,IAAI,MAAM,EAAE,CAE7C"}

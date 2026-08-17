@@ -3,6 +3,7 @@ import { access } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { LoadedTarget, VerifyReceipt } from '../types.js'
+import { VERSION } from '../version.js'
 
 function isHttpTarget(value: string): boolean {
   return /^https?:\/\//i.test(value)
@@ -24,7 +25,7 @@ async function fetchRemotePackage(target: VerifyReceipt['target']): Promise<Reco
   const url = new URL(target.reference)
   const [owner, repository] = url.pathname.split('/').filter(Boolean)
   const headers: Record<string, string> = {
-    'user-agent': 'dsh-forge/0.1.0-alpha.1',
+    'user-agent': `dsh-forge/${VERSION}`,
     accept: 'application/vnd.github+json'
   }
   if (process.env.GITHUB_TOKEN) headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`
