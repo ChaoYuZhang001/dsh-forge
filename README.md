@@ -93,7 +93,7 @@ GITHUB_TOKEN=... SOURCE_DATE_EPOCH=1787011200 \\
   node dist/cli/main.js matrix matrix-targets.json --concurrency 4
 ```
 
-The generated [`catalog/`](catalog/) directory is public evidence and a provider payload preview. It is not a live provider: no HTTPS endpoint is deployed by this repository yet, and the files must be served with `application/json` before adding the manifest URL to Desktop. A `pass` or `warn` entry is not an endorsement or a security audit; `fail` entries remain visible so the market cannot silently turn an unresolved plugin into a recommendation.
+The generated [`catalog/`](catalog/) directory is public evidence and a provider payload preview. The current GitHub Pages diagnostic deployment serves `manifest.json` correctly but serves the extensionless `/v1/plugins` payload as `application/octet-stream`; Desktop rejects that response. Do not add the Pages manifest to Desktop until a host returns both documents as `application/json` and `npm run verify:provider -- <manifest-url>` passes. A `pass` or `warn` entry is not an endorsement or a security audit; `fail` entries remain visible so the market cannot silently turn an unresolved plugin into a recommendation.
 
 ## GitHub Action
 
@@ -131,7 +131,7 @@ See [SECURITY.md](SECURITY.md), [CONTRIBUTING.md](CONTRIBUTING.md), and [docs/re
 
 ## Status
 
-`v0.4.0-alpha.2` adds the compatibility matrix, pinned Desktop wire schemas, strict conformance fixtures, adoption documentation, and an opt-in Pages deployment workflow on top of immutable GitHub provenance. It does not install plugins, mutate a DSH profile, or claim a live catalog endpoint until Pages and HTTPS response checks are complete.
+`v0.4.0-alpha.2` adds the compatibility matrix, pinned Desktop wire schemas, strict conformance fixtures, adoption documentation, and an opt-in Pages deployment workflow on top of immutable GitHub provenance. The Pages deployment remains diagnostic because GitHub Pages does not serve the standard extensionless endpoint with a JSON media type. DSH Gate does not install plugins, mutate a DSH profile, or claim a live catalog endpoint until the HTTPS Provider smoke passes.
 
 ## License
 

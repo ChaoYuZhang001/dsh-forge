@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Added a fail-closed live Provider smoke for HTTPS, JSON media types, response limits, schema conformance, and semantic limits.
+- Wired the smoke into the Pages deployment and documented the current extensionless-file MIME incompatibility with Desktop.
+
 ## 0.4.0-alpha.2 - 2026-08-18
 
 - Pinned the DSH Desktop Community Market 1.0.0 source and provider-page schemas to a reviewed Desktop commit.
