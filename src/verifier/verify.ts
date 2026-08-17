@@ -48,7 +48,7 @@ function addPermissionFindings(manifest: PluginManifest, findings: Finding[], ch
 async function runSafePackSmoke(target: LoadedTarget): Promise<CheckResult> {
   if (target.target.kind !== 'local' || !target.localPath) return { id: 'package.pack-smoke', status: 'not-run', summary: 'Pack smoke is available only for a local target; remote source was not executed.' }
   try {
-    await execFileAsync('npm', ['pack', '--dry-run', '--ignore-scripts', '--json'], { cwd: target.localPath, maxBuffer: 1024 * 1024 })
+    await execFileAsync(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['pack', '--dry-run', '--ignore-scripts', '--json'], { cwd: target.localPath, maxBuffer: 1024 * 1024 })
     return { id: 'package.pack-smoke', status: 'pass', summary: 'npm pack dry-run completed with lifecycle scripts disabled.' }
   } catch (error) {
     const message = error instanceof Error ? error.message.split('\n')[0] : String(error)
