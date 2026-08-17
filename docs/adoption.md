@@ -38,7 +38,10 @@ retention policy requires that.
 ## Market and Desktop operators
 
 The generated `catalog/` directory is a provider payload, not a complete web
-application. To expose it to a Desktop market, a deployment must present:
+application. The repository includes a GitHub Pages deployment workflow in
+`.github/workflows/pages.yml`; the repository administrator must enable Pages
+with GitHub Actions as the source before the first deployment. A deployment
+must present:
 
 ```text
 https://<host>/<base>/manifest.json
@@ -51,6 +54,10 @@ deployment must copy `catalog/manifest.json` to `manifest.json` and
 `catalog/v1/plugins` to `v1/plugins` at the site root. Do not publish the
 manifest URL to users until those URLs have been checked from the same network
 boundary as Desktop.
+
+The included workflow performs that copy and validates both JSON documents, but
+it cannot enable Pages or create a custom domain. Those are repository-owner
+operations and must be verified separately.
 
 The Desktop host remains responsible for source selection, caching, install
 confirmation, and profile changes. DSH Gate only supplies evidence. `FAIL`

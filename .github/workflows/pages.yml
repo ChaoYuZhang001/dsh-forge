@@ -1,0 +1,50 @@
+name: Deploy DSH Gate Catalog Provider
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'catalog/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Configure Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+
+      - name: Build static Provider site
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p site/v1
+          cp catalog/manifest.json site/manifest.json
+          cp catalog/v1/plugins site/v1/plugins
+          : > site/.nojekyll
+          test "$(node -e "const m=require('./site/manifest.json'); process.stdout.write(m.transport.endpoint)")" = "https://chaoyuzhang001.github.io/dsh-gate/v1/plugins"
+          node -e "JSON.parse(require('node:fs').readFileSync('site/manifest.json', 'utf8')); JSON.parse(require('node:fs').readFileSync('site/v1/plugins', 'utf8'))"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        with:
+          path: site
+
+      - name: Deploy Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

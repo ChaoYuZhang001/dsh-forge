@@ -43,9 +43,9 @@ Adjacent projects already cover the other layers:
 The adoption path is deliberately concrete: plugin authors can add the GitHub
 Action to pull requests, and a market or Desktop host can consume the same
 Receipt-derived `pass`/`warn`/`fail` result before showing an install action.
-The current catalog remains a reviewable preview until a real HTTPS JSON
-Provider is deployed. A catalog entry is never an endorsement or a silent
-installation decision.
+The current catalog remains a reviewable preview until the Pages deployment is
+enabled and its HTTPS JSON responses are independently verified. A catalog
+entry is never an endorsement or a silent installation decision.
 
 See [docs/adoption.md](docs/adoption.md) for the concrete plugin-author,
 market-operator, and release rollout paths.
