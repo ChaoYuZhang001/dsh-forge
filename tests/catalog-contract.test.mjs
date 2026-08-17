@@ -92,7 +92,8 @@ test('pins the Desktop 1.0.0 wire schemas to the reviewed source commit', async 
     'catalog-source.schema.json': sourceSchemaPath,
     'catalog-provider-page.schema.json': pageSchemaPath
   })) {
-    const digest = createHash('sha256').update(await readFile(url)).digest('hex')
+    const normalizedSchema = (await readFile(url, 'utf8')).replace(/\r\n/gu, '\n')
+    const digest = createHash('sha256').update(normalizedSchema).digest('hex')
     assert.equal(digest, expected[name], `${name} changed without updating the pinned source record`)
   }
 })
