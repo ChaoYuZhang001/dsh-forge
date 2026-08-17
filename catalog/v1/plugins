@@ -1,0 +1,476 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-08-18T00:00:00.000Z",
+  "revision": "dsh-gate-0.4.0-alpha.1",
+  "items": [
+    {
+      "id": "chenw2759-wq-dsh-plugin-healthcheck",
+      "name": "dsh-plugin-healthcheck",
+      "displayName": "dsh-plugin-healthcheck",
+      "summary": "DSH Gate WARN: DSH 插件健康检查：设置面板内的「插件检测」向导 — L0 静态检查（files 白名单/依赖声明/高危副本/依赖可解析/Windows 命令/lockfile 一致性）+ L1 配置组合检查 + L2 隔离试跑（子进程 boot 全树），发现即自动回滚（写 home patch 前弹确认），复杂问题打包预制提示词交给 agent 修复。铁律：只修改插件代码与配置层，严禁修改 harness 源码。",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 1 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "0.1.0",
+      "categories": [
+        "observability",
+        "verification.warn"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "warn"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/chenw2759-wq/dsh-plugin-healthcheck"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "dsh-plugin-healthcheck"
+      },
+      "publisher": {
+        "name": "chenw2759-wq",
+        "url": "https://github.com/chenw2759-wq"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "dsh-market-dsh-market",
+      "name": "dshmarket",
+      "displayName": "dsh-market",
+      "summary": "DSH Gate WARN: Visual plugin market inside DeepSeek Harness — browse, search, and one-click install community plugins. · DSH 可视化插件市场：逛一逛，点一下，装好。",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 2 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "1.11.3",
+      "categories": [
+        "market",
+        "verification.warn"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "warn"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/dsh-market/dsh-market"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "dshmarket"
+      },
+      "publisher": {
+        "name": "dsh-market",
+        "url": "https://github.com/dsh-market"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "huanlinoto-dsh-plugin-interpreters",
+      "name": "@huanlin/dsh-plugin-interpreters",
+      "displayName": "dsh-plugin-interpreters",
+      "summary": "DSH Gate FAIL: Exposes run_python and run_node tools with configurable interpreter paths; settings card (via /interpreters/api HTTP route) lets users set the executable locations.",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 12 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "0.1.0",
+      "categories": [
+        "runtime",
+        "verification.fail"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "fail"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/HuanLinOTO/dsh-plugin-interpreters"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "@huanlin/dsh-plugin-interpreters"
+      },
+      "publisher": {
+        "name": "HuanLinOTO",
+        "url": "https://github.com/HuanLinOTO"
+      },
+      "license": "NOASSERTION"
+    },
+    {
+      "id": "huanlinoto-dsh-plugin-sleep",
+      "name": "@huanlin/dsh-plugin-sleep",
+      "displayName": "dsh-plugin-sleep",
+      "summary": "DSH Gate FAIL: DSH plugin exposing a single `sleep` tool that lets the model pause for a configurable number of milliseconds, honoring cancellation.",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 3 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "0.1.0",
+      "categories": [
+        "tools",
+        "verification.fail"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "fail"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/HuanLinOTO/dsh-plugin-sleep"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "@huanlin/dsh-plugin-sleep"
+      },
+      "publisher": {
+        "name": "HuanLinOTO",
+        "url": "https://github.com/HuanLinOTO"
+      },
+      "license": "NOASSERTION"
+    },
+    {
+      "id": "linyp-dsh-plugin-langfuse",
+      "name": "dsh-plugin-langfuse",
+      "displayName": "dsh-plugin-langfuse",
+      "summary": "DSH Gate WARN: Langfuse observability for DeepSeek Harness: OpenTelemetry traces, compaction, feedback Scores, and fork lineage",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 2 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "0.3.0",
+      "categories": [
+        "observability",
+        "verification.warn"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "warn"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/linyp/dsh-plugin-langfuse"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "dsh-plugin-langfuse"
+      },
+      "publisher": {
+        "name": "linyp",
+        "url": "https://github.com/linyp"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "nanmicoder-dsh-agent-teams",
+      "name": "@nanmicoder/dsh-agent-teams",
+      "displayName": "dsh-agent-teams",
+      "summary": "DSH Gate WARN: AgentTeams for DeepSeek Harness: multi-agent team collaboration (captain, members, tasks with dependencies, messaging) driven by natural language, with a tree monitor in the web GUI",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 1 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "0.1.7",
+      "categories": [
+        "agents",
+        "verification.warn"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "warn"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/NanmiCoder/dsh-agent-teams"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "@nanmicoder/dsh-agent-teams"
+      },
+      "publisher": {
+        "name": "NanmiCoder",
+        "url": "https://github.com/NanmiCoder"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "nanmicoder-dsh-auto-mode",
+      "name": "@nanmicoder/dsh-auto-mode",
+      "displayName": "dsh-auto-mode",
+      "summary": "DSH Gate WARN: Sandbox-first automatic permission policy for DeepSeek Harness",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 1 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "0.1.4",
+      "categories": [
+        "verification.warn",
+        "workflow"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "warn"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/NanmiCoder/dsh-auto-mode"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "@nanmicoder/dsh-auto-mode"
+      },
+      "publisher": {
+        "name": "NanmiCoder",
+        "url": "https://github.com/NanmiCoder"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "nanmicoder-dsh-plugin-market",
+      "name": "@nanmicoder/dsh-plugin-market",
+      "displayName": "dsh-plugin-market",
+      "summary": "DSH Gate WARN: Verified plugin marketplace for DeepSeek Harness: discover, inspect, install, and remove DSH plugins from the Web UI",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 1 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "0.2.0",
+      "categories": [
+        "market",
+        "verification.warn"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "warn"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/NanmiCoder/dsh-plugin-market"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "@nanmicoder/dsh-plugin-market"
+      },
+      "publisher": {
+        "name": "NanmiCoder",
+        "url": "https://github.com/NanmiCoder"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "oil-oil-dsh-vision",
+      "name": "@oil-oil/dsh-vision",
+      "displayName": "dsh-vision",
+      "summary": "DSH Gate FAIL: Near-native image understanding for text-only DeepSeek Harness models",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 16 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "0.1.0",
+      "categories": [
+        "media",
+        "verification.fail"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "fail"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/oil-oil/dsh-vision"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "@oil-oil/dsh-vision"
+      },
+      "publisher": {
+        "name": "oil-oil",
+        "url": "https://github.com/oil-oil"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "w2112515-dsh-plugin-development",
+      "name": "dsh-plugin-development",
+      "displayName": "dsh-plugin-development",
+      "summary": "DSH Gate WARN: Portable Agent Skill for developing and auditing DeepSeek Harness plugins, with an optional DSH bundle adapter.",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 2 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "0.2.0-beta.1",
+      "categories": [
+        "dev",
+        "verification.warn"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "warn"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/w2112515/dsh-plugin-development"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "dsh-plugin-development"
+      },
+      "publisher": {
+        "name": "w2112515",
+        "url": "https://github.com/w2112515"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "w2112515-dsh-plugin-marketplace",
+      "name": "@w2112515/dsh-plugin-marketplace",
+      "displayName": "dsh-plugin-marketplace",
+      "summary": "DSH Gate WARN: Out-of-tree installable plugin marketplace bundle for DeepSeek Harness",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 2 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "0.2.0",
+      "categories": [
+        "market",
+        "verification.warn"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "warn"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/w2112515/dsh-plugin-marketplace"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "@w2112515/dsh-plugin-marketplace"
+      },
+      "publisher": {
+        "name": "w2112515",
+        "url": "https://github.com/w2112515"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "weshopai-weshop-dsh-plugin",
+      "name": "weshop-dsh-plugin",
+      "displayName": "weshop-dsh-plugin",
+      "summary": "DSH Gate WARN: Native Cordis WeShop canvas, tools, skills, and Web UI for DeepSeek Harness",
+      "description": "Static DSH Gate result for DSH 0.1.0-rc.7 on linux-x64. 3 finding(s) require review before installation. A passing or warning result is not a security audit.",
+      "latestVersion": "1.0.1",
+      "categories": [
+        "tools",
+        "verification.warn"
+      ],
+      "keywords": [
+        "deepseek-harness",
+        "dsh-gate",
+        "warn"
+      ],
+      "capabilities": {
+        "required": []
+      },
+      "compatibility": {
+        "apiVersion": "0.1.0-rc.7",
+        "hosts": [
+          "deepseek-harness"
+        ]
+      },
+      "updatedAt": "2026-08-18T00:00:00.000Z",
+      "repository": {
+        "url": "https://github.com/weshopai/weshop-dsh-plugin"
+      },
+      "package": {
+        "registry": "npm",
+        "name": "weshop-dsh-plugin"
+      },
+      "publisher": {
+        "name": "weshopai",
+        "url": "https://github.com/weshopai"
+      },
+      "license": "MIT"
+    }
+  ],
+  "page": {}
+}

@@ -34,7 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           package_version="$(node --print "require('./package.json').version")"
-          asset="dsh-forge-${package_version}.tgz"
+          asset="dsh-gate-${package_version}.tgz"
           npm pack --ignore-scripts
           sha256sum "$asset" > SHA256SUMS
           echo "asset=$asset" >> "$GITHUB_OUTPUT"

@@ -1,5 +1,5 @@
 {
-  "name": "dsh-forge-fixture-first-plugin",
+  "name": "dsh-gate-fixture-first-plugin",
   "version": "1.0.0",
   "dsh": {
     "bundle": {

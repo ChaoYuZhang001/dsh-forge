@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0-alpha.1 - 2026-08-18
+
+- Renamed the public package and Action identity to `dsh-gate`.
+- Added a deterministic compatibility matrix for a curated list of public DSH plugins.
+- Added resolved commit/package provenance, stable counts, Markdown output, and machine-readable matrix schemas.
+- Added generated Desktop Community Market Provider manifest and `/v1/plugins` payloads with visible verification status and declared capabilities.
+- Added a scheduled GitHub Actions workflow that uploads matrix and catalog evidence without installing or mutating a DSH profile.
+- Kept the catalog payload as an undeployed preview until an HTTPS JSON provider with the required content type is configured.
+
 ## 0.3.0-alpha.1 - 2026-08-18
 
 - Added deterministic DSH package discovery under `packages/`, `plugins/`, and `apps/`.

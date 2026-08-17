@@ -1,4 +1,4 @@
-import type { ForgeManifest, PluginManifest, Finding } from '../types.js'
+import type { GateManifest, PluginManifest, Finding } from '../types.js'
 
 const ALLOWED_PERMISSIONS = new Set([
   'filesystem',
@@ -57,12 +57,12 @@ export function readPluginManifest(packageJson: Record<string, unknown>): {
     findings.push({ code: 'package.private', severity: 'warning', message: 'package.json is private and may not be installable from a public registry.' })
   }
 
-  const forgeRecord = asRecord(dsh?.forge)
-  const permissions = asStringArray(forgeRecord?.permissions)
+  const gateRecord = asRecord(dsh?.gate)
+  const permissions = asStringArray(gateRecord?.permissions)
   for (const permission of permissions ?? []) {
     if (!ALLOWED_PERMISSIONS.has(permission)) {
       findings.push({
-        code: 'forge.unknown-permission',
+        code: 'gate.unknown-permission',
         severity: 'error',
         message: `Unknown declared permission: ${permission}.`,
         evidence: [...ALLOWED_PERMISSIONS].sort().join(', ')
@@ -70,11 +70,11 @@ export function readPluginManifest(packageJson: Record<string, unknown>): {
     }
   }
 
-  if (hasBundle && !forgeRecord) {
+  if (hasBundle && !gateRecord) {
     findings.push({
-      code: 'forge.manifest-missing',
+      code: 'gate.manifest-missing',
       severity: 'warning',
-      message: 'No dsh.forge manifest is declared; compatibility and permission results will be inferred.'
+      message: 'No dsh.gate manifest is declared; compatibility and permission results will be inferred.'
     })
   }
 
@@ -84,14 +84,14 @@ export function readPluginManifest(packageJson: Record<string, unknown>): {
   }
 
   if (id && version) {
-    const forge: ForgeManifest | undefined = forgeRecord
+    const gate: GateManifest | undefined = gateRecord
       ? {
-          id: typeof forgeRecord.id === 'string' ? forgeRecord.id : undefined,
-          compatibleWith: typeof forgeRecord.compatibleWith === 'string' ? forgeRecord.compatibleWith : undefined,
+          id: typeof gateRecord.id === 'string' ? gateRecord.id : undefined,
+          compatibleWith: typeof gateRecord.compatibleWith === 'string' ? gateRecord.compatibleWith : undefined,
           permissions,
-          platforms: asStringArray(forgeRecord.platforms),
-          requiresRestart: typeof forgeRecord.requiresRestart === 'boolean' ? forgeRecord.requiresRestart : undefined,
-          nativeBinaries: typeof forgeRecord.nativeBinaries === 'boolean' ? forgeRecord.nativeBinaries : undefined
+          platforms: asStringArray(gateRecord.platforms),
+          requiresRestart: typeof gateRecord.requiresRestart === 'boolean' ? gateRecord.requiresRestart : undefined,
+          nativeBinaries: typeof gateRecord.nativeBinaries === 'boolean' ? gateRecord.nativeBinaries : undefined
         }
       : undefined
 
@@ -102,7 +102,7 @@ export function readPluginManifest(packageJson: Record<string, unknown>): {
         description: typeof packageJson.description === 'string' ? packageJson.description : undefined,
         dshBundle: hasBundle,
         dshClient: hasClient,
-        forge,
+        gate,
         peerDependencies: asStringRecord(packageJson.peerDependencies),
         dependencies: asStringRecord(packageJson.dependencies),
         scripts: asStringRecord(packageJson.scripts),

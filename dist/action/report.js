@@ -8,7 +8,7 @@ function markdownCell(value) {
 export function renderActionSummary(receipt) {
     const plugin = receipt.plugin ? `${receipt.plugin.id}@${receipt.plugin.version}` : 'unknown plugin';
     const lines = [
-        '### DSH Forge Receipt',
+        '### DSH Gate Receipt',
         '',
         '| Field | Value |',
         '| --- | --- |',

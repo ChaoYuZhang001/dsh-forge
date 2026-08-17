@@ -11,7 +11,7 @@ export interface CheckResult {
     status: CheckStatus;
     summary: string;
 }
-export interface ForgeManifest {
+export interface GateManifest {
     id?: string;
     compatibleWith?: string;
     permissions?: string[];
@@ -25,7 +25,7 @@ export interface PluginManifest {
     description?: string;
     dshBundle: boolean;
     dshClient: boolean;
-    forge?: ForgeManifest;
+    gate?: GateManifest;
     peerDependencies: Record<string, string>;
     dependencies: Record<string, string>;
     scripts: Record<string, string>;
@@ -41,10 +41,10 @@ export interface LoadTargetOptions {
     packagePath?: string;
 }
 export interface VerifyReceipt {
-    schemaVersion: '0.2';
+    schemaVersion: '0.3';
     generatedAt: string;
     verifier: {
-        name: 'dsh-forge';
+        name: 'dsh-gate';
         version: string;
     };
     target: {
@@ -66,11 +66,55 @@ export interface VerifyReceipt {
         id: string;
         version: string;
         description?: string;
+        compatibleWith?: string;
+        permissions: string[];
+        platforms?: string[];
+        requiresRestart?: boolean;
+        nativeBinaries?: boolean;
     };
     status: 'pass' | 'warn' | 'fail';
     checks: CheckResult[];
     findings: Finding[];
     notes: string[];
+}
+export interface MatrixTarget {
+    id: string;
+    target: string;
+    displayName?: string;
+    ref?: string;
+    packagePath?: string;
+    categories?: string[];
+}
+export interface MatrixConfig {
+    schemaVersion: '0.1';
+    baseline: {
+        dshVersion: string;
+        platform: string;
+    };
+    targets: MatrixTarget[];
+}
+export interface CompatibilityMatrixEntry {
+    id: string;
+    displayName: string;
+    target: string;
+    repository?: string;
+    requestedRef?: string;
+    packagePath?: string;
+    categories: string[];
+    status: VerifyReceipt['status'] | 'error';
+    receipt?: VerifyReceipt;
+    error?: string;
+}
+export interface CompatibilityMatrix {
+    schemaVersion: '0.1';
+    generatedAt: string;
+    generator: {
+        name: 'dsh-gate';
+        version: string;
+    };
+    baseline: MatrixConfig['baseline'];
+    counts: Record<CompatibilityMatrixEntry['status'], number>;
+    entries: CompatibilityMatrixEntry[];
 }
 export interface LoadedTarget {
     target: VerifyReceipt['target'];

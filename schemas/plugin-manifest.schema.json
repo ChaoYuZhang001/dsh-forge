@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/ChaoYuZhang001/dsh-forge/schema/plugin-manifest.schema.json",
-  "title": "DSH Forge plugin manifest",
-  "description": "Optional dsh.forge metadata consumed by the DSH Forge alpha verifier.",
+  "$id": "https://github.com/ChaoYuZhang001/dsh-gate/schema/plugin-manifest.schema.json",
+  "title": "DSH Gate plugin manifest",
+  "description": "Optional dsh.gate metadata consumed by the DSH Gate alpha verifier.",
   "type": "object",
   "properties": {
     "id": { "type": "string", "minLength": 1 },

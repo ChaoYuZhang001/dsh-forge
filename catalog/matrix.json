@@ -1,0 +1,1284 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "2026-08-18T00:00:00.000Z",
+  "generator": {
+    "name": "dsh-gate",
+    "version": "0.4.0-alpha.1"
+  },
+  "baseline": {
+    "dshVersion": "0.1.0-rc.7",
+    "platform": "linux-x64"
+  },
+  "counts": {
+    "pass": 0,
+    "warn": 9,
+    "fail": 3,
+    "error": 0
+  },
+  "entries": [
+    {
+      "id": "chenw2759-wq-dsh-plugin-healthcheck",
+      "displayName": "dsh-plugin-healthcheck",
+      "target": "https://github.com/chenw2759-wq/dsh-plugin-healthcheck",
+      "repository": "https://github.com/chenw2759-wq/dsh-plugin-healthcheck",
+      "packagePath": "package.json",
+      "categories": [
+        "observability"
+      ],
+      "status": "warn",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/chenw2759-wq/dsh-plugin-healthcheck",
+          "ref": "main",
+          "packagePath": "package.json",
+          "commitSha": "0d29936305a1649a08625d70066d0c2c3ef1700b",
+          "packageBlobSha": "b48d775116f8ae5c871352c257d873d048ca1ca5",
+          "repositoryId": 1333829912,
+          "license": "MIT",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "dsh-plugin-healthcheck",
+          "version": "0.1.0",
+          "description": "DSH 插件健康检查：设置面板内的「插件检测」向导 — L0 静态检查（files 白名单/依赖声明/高危副本/依赖可解析/Windows 命令/lockfile 一致性）+ L1 配置组合检查 + L2 隔离试跑（子进程 boot 全树），发现即自动回滚（写 home patch 前弹确认），复杂问题打包预制提示词交给 agent 修复。铁律：只修改插件代码与配置层，严禁修改 harness 源码。",
+          "permissions": []
+        },
+        "status": "warn",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "dsh-plugin-healthcheck@0.1.0 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "pass",
+            "summary": "All official DSH peer ranges accept 0.1.0-rc.7."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; no high-signal permissions inferred."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/chenw2759-wq/dsh-plugin-healthcheck at 0d29936305a1649a08625d70066d0c2c3ef1700b (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "dsh-market-dsh-market",
+      "displayName": "dsh-market",
+      "target": "https://github.com/dsh-market/dsh-market",
+      "repository": "https://github.com/dsh-market/dsh-market",
+      "packagePath": "package.json",
+      "categories": [
+        "market"
+      ],
+      "status": "warn",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/dsh-market/dsh-market",
+          "ref": "main",
+          "packagePath": "package.json",
+          "commitSha": "56d937860b9b8b01f6b986bfaafd972476c0a7bf",
+          "packageBlobSha": "9f6dc8b328b047382fc66f1132c8cd89d40745fd",
+          "repositoryId": 1333807290,
+          "license": "MIT",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "dshmarket",
+          "version": "1.11.3",
+          "description": "Visual plugin market inside DeepSeek Harness — browse, search, and one-click install community plugins. · DSH 可视化插件市场：逛一逛，点一下，装好。",
+          "permissions": []
+        },
+        "status": "warn",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "dshmarket@1.11.3 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "not-run",
+            "summary": "No @deepseek-ai/* peer dependency range was declared."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; no high-signal permissions inferred."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/dsh-market/dsh-market at 56d937860b9b8b01f6b986bfaafd972476c0a7bf (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          },
+          {
+            "code": "dsh.peer-range-missing",
+            "severity": "warning",
+            "message": "No official DSH peer dependency range was declared; compatibility is not mechanically bounded."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "huanlinoto-dsh-plugin-interpreters",
+      "displayName": "dsh-plugin-interpreters",
+      "target": "https://github.com/HuanLinOTO/dsh-plugin-interpreters",
+      "repository": "https://github.com/HuanLinOTO/dsh-plugin-interpreters",
+      "packagePath": "package.json",
+      "categories": [
+        "runtime"
+      ],
+      "status": "fail",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/HuanLinOTO/dsh-plugin-interpreters",
+          "ref": "master",
+          "packagePath": "package.json",
+          "commitSha": "dded3018d8f1e44142be8f845d23b7d559c8da52",
+          "packageBlobSha": "c9c75a94572045f1125976d3c2a3d37e194c2b0f",
+          "repositoryId": 1331842107,
+          "license": "NOASSERTION",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "@huanlin/dsh-plugin-interpreters",
+          "version": "0.1.0",
+          "description": "Exposes run_python and run_node tools with configurable interpreter paths; settings card (via /interpreters/api HTTP route) lets users set the executable locations.",
+          "permissions": []
+        },
+        "status": "fail",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "@huanlin/dsh-plugin-interpreters@0.1.0 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "fail",
+            "summary": "One or more official DSH peer ranges reject the baseline."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; no high-signal permissions inferred."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/HuanLinOTO/dsh-plugin-interpreters at dded3018d8f1e44142be8f845d23b7d559c8da52 (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          },
+          {
+            "code": "package.repository-missing",
+            "severity": "warning",
+            "message": "package.json has no repository or homepage field for source provenance."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-connection@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-locale@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-runtime@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-ui-settings-plugins@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-ui-primitives@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-ui-slots@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-web-react@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-host-webserver@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-settings@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-tools@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "huanlinoto-dsh-plugin-sleep",
+      "displayName": "dsh-plugin-sleep",
+      "target": "https://github.com/HuanLinOTO/dsh-plugin-sleep",
+      "repository": "https://github.com/HuanLinOTO/dsh-plugin-sleep",
+      "packagePath": "package.json",
+      "categories": [
+        "tools"
+      ],
+      "status": "fail",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/HuanLinOTO/dsh-plugin-sleep",
+          "ref": "master",
+          "packagePath": "package.json",
+          "commitSha": "db01482835ed9bf472f1b63a9372e0a987b1a681",
+          "packageBlobSha": "06316c732a7cba487f7441f8a229c6bc582bd436",
+          "repositoryId": 1329739741,
+          "license": "NOASSERTION",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "@huanlin/dsh-plugin-sleep",
+          "version": "0.1.0",
+          "description": "DSH plugin exposing a single `sleep` tool that lets the model pause for a configurable number of milliseconds, honoring cancellation.",
+          "permissions": []
+        },
+        "status": "fail",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "@huanlin/dsh-plugin-sleep@0.1.0 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "fail",
+            "summary": "One or more official DSH peer ranges reject the baseline."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; no high-signal permissions inferred."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/HuanLinOTO/dsh-plugin-sleep at db01482835ed9bf472f1b63a9372e0a987b1a681 (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          },
+          {
+            "code": "package.repository-missing",
+            "severity": "warning",
+            "message": "package.json has no repository or homepage field for source provenance."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-tools@^0.0.1-rc.1 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "linyp-dsh-plugin-langfuse",
+      "displayName": "dsh-plugin-langfuse",
+      "target": "https://github.com/linyp/dsh-plugin-langfuse",
+      "repository": "https://github.com/linyp/dsh-plugin-langfuse",
+      "packagePath": "package.json",
+      "categories": [
+        "observability"
+      ],
+      "status": "warn",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/linyp/dsh-plugin-langfuse",
+          "ref": "main",
+          "packagePath": "package.json",
+          "commitSha": "2c58e86c16ed2c67c48e8480df3b966afde3409e",
+          "packageBlobSha": "da30fd230e1d8fabf4c95ee967163fccc48fa940",
+          "repositoryId": 1333788844,
+          "license": "MIT",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "dsh-plugin-langfuse",
+          "version": "0.3.0",
+          "description": "Langfuse observability for DeepSeek Harness: OpenTelemetry traces, compaction, feedback Scores, and fork lineage",
+          "permissions": []
+        },
+        "status": "warn",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "dsh-plugin-langfuse@0.3.0 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "not-run",
+            "summary": "No @deepseek-ai/* peer dependency range was declared."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; no high-signal permissions inferred."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/linyp/dsh-plugin-langfuse at 2c58e86c16ed2c67c48e8480df3b966afde3409e (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          },
+          {
+            "code": "dsh.peer-range-missing",
+            "severity": "warning",
+            "message": "No official DSH peer dependency range was declared; compatibility is not mechanically bounded."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "nanmicoder-dsh-agent-teams",
+      "displayName": "dsh-agent-teams",
+      "target": "https://github.com/NanmiCoder/dsh-agent-teams",
+      "repository": "https://github.com/NanmiCoder/dsh-agent-teams",
+      "packagePath": "package.json",
+      "categories": [
+        "agents"
+      ],
+      "status": "warn",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/NanmiCoder/dsh-agent-teams",
+          "ref": "main",
+          "packagePath": "package.json",
+          "commitSha": "763d88f0d5060f6009b87764d958e6caa18bade8",
+          "packageBlobSha": "ad0d1d92c4a9576a550050badfadce58287883b7",
+          "repositoryId": 1332073142,
+          "license": "MIT",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "@nanmicoder/dsh-agent-teams",
+          "version": "0.1.7",
+          "description": "AgentTeams for DeepSeek Harness: multi-agent team collaboration (captain, members, tasks with dependencies, messaging) driven by natural language, with a tree monitor in the web GUI",
+          "permissions": []
+        },
+        "status": "warn",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "@nanmicoder/dsh-agent-teams@0.1.7 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "pass",
+            "summary": "All official DSH peer ranges accept 0.1.0-rc.7."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; no high-signal permissions inferred."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/NanmiCoder/dsh-agent-teams at 763d88f0d5060f6009b87764d958e6caa18bade8 (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "nanmicoder-dsh-auto-mode",
+      "displayName": "dsh-auto-mode",
+      "target": "https://github.com/NanmiCoder/dsh-auto-mode",
+      "repository": "https://github.com/NanmiCoder/dsh-auto-mode",
+      "packagePath": "package.json",
+      "categories": [
+        "workflow"
+      ],
+      "status": "warn",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/NanmiCoder/dsh-auto-mode",
+          "ref": "main",
+          "packagePath": "package.json",
+          "commitSha": "a87533e638a88b1dec6eab2dc3a1d32815811a4a",
+          "packageBlobSha": "d2a7b0d1cbf2eeb5e8228301e76a895cc0fd8cfd",
+          "repositoryId": 1333939283,
+          "license": "MIT",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "@nanmicoder/dsh-auto-mode",
+          "version": "0.1.4",
+          "description": "Sandbox-first automatic permission policy for DeepSeek Harness",
+          "permissions": []
+        },
+        "status": "warn",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "@nanmicoder/dsh-auto-mode@0.1.4 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "pass",
+            "summary": "All official DSH peer ranges accept 0.1.0-rc.7."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; no high-signal permissions inferred."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/NanmiCoder/dsh-auto-mode at a87533e638a88b1dec6eab2dc3a1d32815811a4a (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "nanmicoder-dsh-plugin-market",
+      "displayName": "dsh-plugin-market",
+      "target": "https://github.com/NanmiCoder/dsh-plugin-market",
+      "repository": "https://github.com/NanmiCoder/dsh-plugin-market",
+      "packagePath": "package.json",
+      "categories": [
+        "market"
+      ],
+      "status": "warn",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/NanmiCoder/dsh-plugin-market",
+          "ref": "main",
+          "packagePath": "package.json",
+          "commitSha": "a99ee42831fe0641c127396538c52bb5b601e257",
+          "packageBlobSha": "e449e7e1321e30750bd623de91f9fc62abaa15b4",
+          "repositoryId": 1333874614,
+          "license": "MIT",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "@nanmicoder/dsh-plugin-market",
+          "version": "0.2.0",
+          "description": "Verified plugin marketplace for DeepSeek Harness: discover, inspect, install, and remove DSH plugins from the Web UI",
+          "permissions": []
+        },
+        "status": "warn",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "@nanmicoder/dsh-plugin-market@0.2.0 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "pass",
+            "summary": "All official DSH peer ranges accept 0.1.0-rc.7."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; no high-signal permissions inferred."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/NanmiCoder/dsh-plugin-market at a99ee42831fe0641c127396538c52bb5b601e257 (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "oil-oil-dsh-vision",
+      "displayName": "dsh-vision",
+      "target": "https://github.com/oil-oil/dsh-vision",
+      "repository": "https://github.com/oil-oil/dsh-vision",
+      "packagePath": "package.json",
+      "categories": [
+        "media"
+      ],
+      "status": "fail",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/oil-oil/dsh-vision",
+          "ref": "main",
+          "packagePath": "package.json",
+          "commitSha": "a12800eeb02eb6dd45f5e2cda6c7db3c16088883",
+          "packageBlobSha": "de5e49fbe1cefec97afd14ca065d7979d07354ad",
+          "repositoryId": 1333755444,
+          "license": "MIT",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "@oil-oil/dsh-vision",
+          "version": "0.1.0",
+          "description": "Near-native image understanding for text-only DeepSeek Harness models",
+          "permissions": []
+        },
+        "status": "fail",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "@oil-oil/dsh-vision@0.1.0 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "fail",
+            "summary": "One or more official DSH peer ranges reject the baseline."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; no high-signal permissions inferred."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/oil-oil/dsh-vision at a12800eeb02eb6dd45f5e2cda6c7db3c16088883 (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-anonymous-user-id@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-api-remotes@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-attachment@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-connection@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-locale@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-runtime@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-ui-primitives@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-ui-settings@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-ui-settings-plugins@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-client-ui-slots@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-credentials@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-launch-environment@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-llm@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-llm-deepseek@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          },
+          {
+            "code": "dsh.peer-range-failed",
+            "severity": "error",
+            "message": "@deepseek-ai/dsh-settings@0.1.0-rc.6 does not accept baseline 0.1.0-rc.7.",
+            "evidence": "Prerelease DSH versions require an explicit prerelease comparator on the matching tuple."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "w2112515-dsh-plugin-development",
+      "displayName": "dsh-plugin-development",
+      "target": "https://github.com/w2112515/dsh-plugin-development",
+      "repository": "https://github.com/w2112515/dsh-plugin-development",
+      "packagePath": "package.json",
+      "categories": [
+        "dev"
+      ],
+      "status": "warn",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/w2112515/dsh-plugin-development",
+          "ref": "main",
+          "packagePath": "package.json",
+          "commitSha": "4dab80cbeb86f706aa6fa9cc8269049aa809ccc9",
+          "packageBlobSha": "fcb55b578f393f8fc3f857f3ac4298bde27e89a9",
+          "repositoryId": 1334014671,
+          "license": "MIT",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "dsh-plugin-development",
+          "version": "0.2.0-beta.1",
+          "description": "Portable Agent Skill for developing and auditing DeepSeek Harness plugins, with an optional DSH bundle adapter.",
+          "permissions": []
+        },
+        "status": "warn",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "dsh-plugin-development@0.2.0-beta.1 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "not-run",
+            "summary": "No @deepseek-ai/* peer dependency range was declared."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; no high-signal permissions inferred."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/w2112515/dsh-plugin-development at 4dab80cbeb86f706aa6fa9cc8269049aa809ccc9 (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          },
+          {
+            "code": "dsh.peer-range-missing",
+            "severity": "warning",
+            "message": "No official DSH peer dependency range was declared; compatibility is not mechanically bounded."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "w2112515-dsh-plugin-marketplace",
+      "displayName": "dsh-plugin-marketplace",
+      "target": "https://github.com/w2112515/dsh-plugin-marketplace",
+      "repository": "https://github.com/w2112515/dsh-plugin-marketplace",
+      "packagePath": "package.json",
+      "categories": [
+        "market"
+      ],
+      "status": "warn",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/w2112515/dsh-plugin-marketplace",
+          "ref": "main",
+          "packagePath": "package.json",
+          "commitSha": "511d525cf0c014c94ef39ee3261dbf86bafb109e",
+          "packageBlobSha": "d6cb45c3593d96fb90127f8028b0b8e0e717b045",
+          "repositoryId": 1334782319,
+          "license": "MIT",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "@w2112515/dsh-plugin-marketplace",
+          "version": "0.2.0",
+          "description": "Out-of-tree installable plugin marketplace bundle for DeepSeek Harness",
+          "permissions": []
+        },
+        "status": "warn",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "@w2112515/dsh-plugin-marketplace@0.2.0 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "pass",
+            "summary": "All official DSH peer ranges accept 0.1.0-rc.7."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; inferred for review: subprocess."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/w2112515/dsh-plugin-marketplace at 511d525cf0c014c94ef39ee3261dbf86bafb109e (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          },
+          {
+            "code": "gate.permission-underdeclared",
+            "severity": "warning",
+            "message": "The verifier inferred permission(s) not declared in dsh.gate.permissions: subprocess."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    },
+    {
+      "id": "weshopai-weshop-dsh-plugin",
+      "displayName": "weshop-dsh-plugin",
+      "target": "https://github.com/weshopai/weshop-dsh-plugin",
+      "repository": "https://github.com/weshopai/weshop-dsh-plugin",
+      "packagePath": "package.json",
+      "categories": [
+        "tools"
+      ],
+      "status": "warn",
+      "receipt": {
+        "schemaVersion": "0.3",
+        "generatedAt": "2026-08-18T00:00:00.000Z",
+        "verifier": {
+          "name": "dsh-gate",
+          "version": "0.4.0-alpha.1"
+        },
+        "target": {
+          "kind": "github",
+          "reference": "https://github.com/weshopai/weshop-dsh-plugin",
+          "ref": "main",
+          "packagePath": "package.json",
+          "commitSha": "bb01658c4707ff9a5491903f324db22da74bab3e",
+          "packageBlobSha": "6ced8a9c0eac228b3c5be26fcdb1e7f574ef2fc8",
+          "repositoryId": 1333820264,
+          "license": "MIT",
+          "archived": false
+        },
+        "baseline": {
+          "dshVersion": "0.1.0-rc.7",
+          "platform": "linux-x64"
+        },
+        "plugin": {
+          "id": "weshop-dsh-plugin",
+          "version": "1.0.1",
+          "description": "Native Cordis WeShop canvas, tools, skills, and Web UI for DeepSeek Harness",
+          "permissions": []
+        },
+        "status": "warn",
+        "checks": [
+          {
+            "id": "package.identity",
+            "status": "pass",
+            "summary": "weshop-dsh-plugin@1.0.1 identified."
+          },
+          {
+            "id": "dsh.peer-compatibility",
+            "status": "not-run",
+            "summary": "No @deepseek-ai/* peer dependency range was declared."
+          },
+          {
+            "id": "gate.compatibility",
+            "status": "not-run",
+            "summary": "No explicit dsh.gate.compatibleWith range was declared."
+          },
+          {
+            "id": "gate.platform",
+            "status": "pass",
+            "summary": "No platform restriction was declared."
+          },
+          {
+            "id": "gate.permissions",
+            "status": "pass",
+            "summary": "Declared: none; inferred for review: subprocess."
+          },
+          {
+            "id": "source.provenance",
+            "status": "pass",
+            "summary": "Source read from https://github.com/weshopai/weshop-dsh-plugin at bb01658c4707ff9a5491903f324db22da74bab3e (package.json)."
+          },
+          {
+            "id": "package.pack-smoke",
+            "status": "not-run",
+            "summary": "Pack smoke was not requested; use --smoke to run npm pack with scripts disabled."
+          }
+        ],
+        "findings": [
+          {
+            "code": "gate.manifest-missing",
+            "severity": "warning",
+            "message": "No dsh.gate manifest is declared; compatibility and permission results will be inferred."
+          },
+          {
+            "code": "dsh.peer-range-missing",
+            "severity": "warning",
+            "message": "No official DSH peer dependency range was declared; compatibility is not mechanically bounded."
+          },
+          {
+            "code": "gate.permission-underdeclared",
+            "severity": "warning",
+            "message": "The verifier inferred permission(s) not declared in dsh.gate.permissions: subprocess."
+          }
+        ],
+        "notes": [
+          "This alpha performs static checks and an optional npm pack dry-run; it does not execute plugin install scripts or claim a security audit.",
+          "A passing receipt means the declared contract and selected smoke checks passed for this baseline, platform, and source ref."
+        ]
+      }
+    }
+  ]
+}

@@ -1,12 +1,12 @@
-# DSH Forge
+# DSH Gate
 
 Static compatibility and permission verification for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugins.
 
-> DSH Forge is a community developer tool, not an official DeepSeek product. A passing receipt is not a security audit.
+> DSH Gate is a community developer tool, not an official DeepSeek product. A passing receipt is not a security audit.
 
 ## What it does
 
-DSH Forge checks a plugin before it is installed into a real profile:
+DSH Gate checks a plugin before it is installed into a real profile:
 
 - verifies the `dsh.bundle` install contract;
 - checks official DSH peer ranges against a selected DSH baseline;
@@ -28,6 +28,7 @@ npm run build
 node dist/cli/main.js verify fixtures/public/healthy-plugin --smoke
 node dist/cli/main.js verify https://github.com/owner/plugin --dsh-version 0.1.0-rc.7 --json receipt.json
 node dist/cli/main.js verify https://github.com/owner/monorepo --path packages/plugin --json receipt.json
+node dist/cli/main.js matrix matrix-targets.json --concurrency 4
 ```
 
 The default baseline is `0.1.0-rc.7`, pinned to the public DSH tag `dsh-v0.1.0-rc.7`.
@@ -40,7 +41,7 @@ GITHUB_TOKEN=... node dist/cli/main.js verify https://github.com/owner/plugin
 
 ## Monorepos
 
-When the repository root is not a DSH plugin, DSH Forge scans package manifests under `packages/`, `plugins/`, and `apps/`. One DSH candidate is selected automatically. Multiple candidates fail with their paths so the workflow cannot silently verify the wrong plugin.
+When the repository root is not a DSH plugin, DSH Gate scans package manifests under `packages/`, `plugins/`, and `apps/`. One DSH candidate is selected automatically. Multiple candidates fail with their paths so the workflow cannot silently verify the wrong plugin.
 
 Select a package explicitly with either form:
 
@@ -53,9 +54,20 @@ The tree URL form treats the first segment after `/tree/` as the ref. For branch
 
 GitHub Receipts record the requested ref, resolved commit SHA, selected `package.json` path and blob SHA, numeric repository ID, SPDX license, and archived state. Remote source is read as data only; discovery never runs repository code.
 
+## Compatibility matrix and Desktop Catalog
+
+The checked-in [`matrix-targets.json`](matrix-targets.json) is a small, public target list for community plugins. The `matrix` command resolves each target, verifies it against one pinned DSH baseline, and writes a JSON matrix, Markdown report, and Desktop Community Market Provider files:
+
+```sh
+GITHUB_TOKEN=... SOURCE_DATE_EPOCH=1787011200 \\
+  node dist/cli/main.js matrix matrix-targets.json --concurrency 4
+```
+
+The generated [`catalog/`](catalog/) directory is public evidence and a provider payload preview. It is not a live provider: no HTTPS endpoint is deployed by this repository yet, and the files must be served with `application/json` before adding the manifest URL to Desktop. A `pass` or `warn` entry is not an endorsement or a security audit; `fail` entries remain visible so the market cannot silently turn an unresolved plugin into a recommendation.
+
 ## GitHub Action
 
-Plugin repositories can verify every pull request without installing or building DSH Forge:
+Plugin repositories can verify every pull request without installing or building DSH Gate:
 
 ```yaml
 name: DSH plugin compatibility
@@ -73,13 +85,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ChaoYuZhang001/dsh-forge@v0.3.0-alpha.1
+      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.1
         with:
           target: .
           github-token: ${{ github.token }}
 ```
 
-The Action writes a check table to the workflow Summary, uploads a sanitized `dsh-forge-receipt.json` artifact for 14 days, and fails on a `fail` Receipt. Pin the full release tag or commit SHA in production workflows. Set `upload-receipt: 'false'` only when the workflow has its own artifact policy.
+The Action writes a check table to the workflow Summary, uploads a sanitized `dsh-gate-receipt.json` artifact for 14 days, and fails on a `fail` Receipt. Pin the full release tag or commit SHA in production workflows. Set `upload-receipt: 'false'` only when the workflow has its own artifact policy.
 
 ## Repository boundary
 
@@ -89,7 +101,7 @@ See [SECURITY.md](SECURITY.md), [CONTRIBUTING.md](CONTRIBUTING.md), and [docs/re
 
 ## Status
 
-`v0.3.0-alpha.1` adds deterministic monorepo package selection and immutable GitHub provenance to the reusable Action. It does not yet install plugins or mutate a DSH profile. Transactional profile installation, rollback, and the desktop operator will build on this Receipt contract in later releases.
+`v0.4.0-alpha.1` adds the compatibility matrix and a generated Desktop Catalog Provider payload on top of immutable GitHub provenance. It does not install plugins, mutate a DSH profile, or publish a live catalog endpoint. Transactional profile installation, rollback, and the desktop operator will build on this Receipt contract in later releases.
 
 ## License
 

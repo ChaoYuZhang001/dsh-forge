@@ -2,7 +2,7 @@
 
 ## Scope
 
-DSH Forge is a static verifier and packaging smoke tool. It does not execute plugin lifecycle scripts in the alpha and it is not a sandbox or a security audit.
+DSH Gate is a static verifier and packaging smoke tool. It does not execute plugin lifecycle scripts in the alpha and it is not a sandbox or a security audit.
 
 ## Reporting a vulnerability
 

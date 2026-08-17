@@ -1,0 +1,23 @@
+{
+  "manifestVersion": "1.0.0",
+  "providerId": "io.github.chaoyuzhang001.dsh-gate",
+  "name": "DSH Gate Verified",
+  "description": "Static compatibility and permission evidence for DeepSeek Harness plugins.",
+  "homepage": "https://github.com/ChaoYuZhang001/dsh-gate",
+  "attribution": {
+    "name": "DSH Gate contributors",
+    "url": "https://github.com/ChaoYuZhang001/dsh-gate",
+    "notice": "Directory entries are generated from public verification Receipts; inclusion is not an endorsement."
+  },
+  "transport": {
+    "kind": "https-json",
+    "endpoint": "https://chaoyuzhang001.github.io/dsh-gate/v1/plugins",
+    "method": "GET"
+  },
+  "query": {
+    "supported": [],
+    "defaultLimit": 20,
+    "maxLimit": 100,
+    "sorts": []
+  }
+}

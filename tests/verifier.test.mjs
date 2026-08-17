@@ -86,17 +86,17 @@ test('healthy fixture produces a passing receipt', async () => {
     smoke: true
   })
   assert.equal(receipt.status, 'pass')
-  assert.equal(receipt.schemaVersion, '0.2')
+  assert.equal(receipt.schemaVersion, '0.3')
   assert.equal(receipt.verifier.version, VERSION)
   assert.equal(receipt.target.packagePath, 'package.json')
-  assert.equal(receipt.plugin?.id, 'dsh-forge-fixture-healthy')
+  assert.equal(receipt.plugin?.id, 'dsh-gate-fixture-healthy')
   assert.equal(receipt.checks.find((check) => check.id === 'package.pack-smoke')?.status, 'pass')
 })
 
 test('discovers the only DSH plugin package in a local monorepo', async () => {
   const target = await loadTarget('fixtures/public/monorepo')
   assert.equal(target.target.packagePath, 'packages/example-plugin/package.json')
-  assert.equal(target.packageJson.name, 'dsh-forge-fixture-monorepo-plugin')
+  assert.equal(target.packageJson.name, 'dsh-gate-fixture-monorepo-plugin')
   assert.match(target.localPath, /example-plugin$/)
 })
 
@@ -137,8 +137,8 @@ test('renders a complete and escaped GitHub Actions summary', async () => {
   })
   receipt.checks[0].summary = 'safe | readable'
   const summary = renderActionSummary(receipt)
-  assert.match(summary, /### DSH Forge Receipt/)
-  assert.match(summary, /dsh-forge-fixture-healthy@1\.0\.0/)
+  assert.match(summary, /### DSH Gate Receipt/)
+  assert.match(summary, /dsh-gate-fixture-healthy@1\.0\.0/)
   assert.match(summary, /safe \\| readable/)
   assert.match(summary, /Static verification only/)
 })
