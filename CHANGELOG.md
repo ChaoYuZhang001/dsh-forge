@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0-alpha.1 - 2026-08-18
+
+- Added a reusable GitHub Action with workflow Summary output and a sanitized Receipt artifact.
+- Added an Action consumer smoke test that runs the committed distribution without a build step.
+- Added success and failure gate coverage plus a release-managed `v0` Action alias.
+- Pinned the Receipt artifact uploader to the immutable `v7.0.1` commit.
+- Made `package.json` the single source for the CLI version and GitHub API User-Agent.
+- Added the verifier version to every JSON Receipt for reproducible CI evidence.
+- Kept verification static and continued to disable plugin lifecycle scripts.
+
 ## 0.1.0-alpha.2 - 2026-08-17
 
 - Fixed cross-platform test discovery on Windows.

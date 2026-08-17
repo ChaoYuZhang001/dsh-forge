@@ -35,6 +35,34 @@ For GitHub API rate limits, set a read-only `GITHUB_TOKEN` in the environment. T
 GITHUB_TOKEN=... node dist/cli/main.js verify https://github.com/owner/plugin
 ```
 
+## GitHub Action
+
+Plugin repositories can verify every pull request without installing or building DSH Forge:
+
+```yaml
+name: DSH plugin compatibility
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ChaoYuZhang001/dsh-forge@v0.2.0-alpha.1
+        with:
+          target: .
+          github-token: ${{ github.token }}
+```
+
+The Action writes a check table to the workflow Summary, uploads a sanitized `dsh-forge-receipt.json` artifact for 14 days, and fails on a `fail` Receipt. Pin the full release tag or commit SHA in production workflows. Set `upload-receipt: 'false'` only when the workflow has its own artifact policy.
+
 ## Repository boundary
 
 This public repository contains source, schemas, tests, sanitized fixtures, CI rules, and public release receipts. It must not contain API keys, signing certificates, `.env` files, real `~/.dsh` profiles, user transcripts, private plugin sources, or raw logs containing machine paths.
@@ -43,7 +71,7 @@ See [SECURITY.md](SECURITY.md), [CONTRIBUTING.md](CONTRIBUTING.md), and [docs/re
 
 ## Status
 
-`v0.1.0-alpha.1` is an intentionally narrow vertical slice: static verification plus a safe package dry-run. Transactional profile installation, rollback, and the desktop operator will build on this receipt contract in later releases.
+`v0.2.0-alpha.1` adds a reusable GitHub Action to the static verifier and safe package dry-run. It does not yet install plugins or mutate a DSH profile. Transactional profile installation, rollback, and the desktop operator will build on this Receipt contract in later releases.
 
 ## License
 

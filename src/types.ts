@@ -46,6 +46,10 @@ export interface VerifyOptions {
 export interface VerifyReceipt {
   schemaVersion: '0.1'
   generatedAt: string
+  verifier: {
+    name: 'dsh-forge'
+    version: string
+  }
   target: {
     kind: 'local' | 'github'
     reference: string

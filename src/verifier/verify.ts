@@ -1,6 +1,7 @@
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import type { CheckResult, Finding, LoadedTarget, PluginManifest, VerifyOptions, VerifyReceipt } from '../types.js'
+import { VERSION } from '../version.js'
 import { readPluginManifest } from '../manifest/schema.js'
 import { satisfiesRange } from './semver.js'
 
@@ -102,6 +103,7 @@ export async function verifyTarget(target: LoadedTarget, options: VerifyOptions)
   const receipt: VerifyReceipt = {
     schemaVersion: '0.1',
     generatedAt: new Date().toISOString(),
+    verifier: { name: 'dsh-forge', version: VERSION },
     target: target.target,
     baseline: { dshVersion: options.dshVersion, platform: options.platform },
     plugin: manifest ? { id: manifest.id, version: manifest.version, description: manifest.description } : undefined,

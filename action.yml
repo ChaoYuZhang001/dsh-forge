@@ -1,0 +1,120 @@
+name: DSH Forge Verify
+description: Verify a DeepSeek Harness plugin contract and publish a sanitized JSON Receipt.
+author: DSH Forge contributors
+
+branding:
+  icon: shield
+  color: blue
+
+inputs:
+  target:
+    description: Local plugin path or public GitHub repository URL.
+    required: false
+    default: .
+  dsh-version:
+    description: DeepSeek Harness version used as the compatibility baseline.
+    required: false
+    default: 0.1.0-rc.7
+  platform:
+    description: Optional platform tuple such as linux-x64. Defaults to the runner platform.
+    required: false
+    default: ''
+  ref:
+    description: Branch, tag, or commit used for a GitHub repository target.
+    required: false
+    default: main
+  smoke:
+    description: Run npm pack --dry-run with lifecycle scripts disabled for local targets.
+    required: false
+    default: 'true'
+  receipt-path:
+    description: Path where the JSON Receipt is written.
+    required: false
+    default: dsh-forge-receipt.json
+  upload-receipt:
+    description: Upload the JSON Receipt as a workflow artifact.
+    required: false
+    default: 'true'
+  artifact-name:
+    description: Name of the uploaded Receipt artifact.
+    required: false
+    default: dsh-forge-receipt
+  fail-on-failure:
+    description: Fail the workflow when verification cannot run or the Receipt status is fail.
+    required: false
+    default: 'true'
+  github-token:
+    description: Optional read-only token for GitHub API requests against remote targets.
+    required: false
+    default: ''
+
+outputs:
+  status:
+    description: Receipt status (pass, warn, fail, or error).
+    value: ${{ steps.verify.outputs.status }}
+  receipt-path:
+    description: Absolute path to the generated Receipt when one was created.
+    value: ${{ steps.verify.outputs.receipt_path }}
+
+runs:
+  using: composite
+  steps:
+    - name: Verify plugin
+      id: verify
+      shell: bash
+      env:
+        DSH_FORGE_TARGET: ${{ inputs.target }}
+        DSH_FORGE_DSH_VERSION: ${{ inputs.dsh-version }}
+        DSH_FORGE_PLATFORM: ${{ inputs.platform }}
+        DSH_FORGE_REF: ${{ inputs.ref }}
+        DSH_FORGE_SMOKE: ${{ inputs.smoke }}
+        DSH_FORGE_RECEIPT_PATH: ${{ inputs.receipt-path }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      run: |
+        args=(verify "$DSH_FORGE_TARGET" --dsh-version "$DSH_FORGE_DSH_VERSION" --ref "$DSH_FORGE_REF")
+        if [[ -n "$DSH_FORGE_PLATFORM" ]]; then
+          args+=(--platform "$DSH_FORGE_PLATFORM")
+        fi
+        if [[ "$DSH_FORGE_SMOKE" == "true" ]]; then
+          args+=(--smoke)
+        fi
+
+        set +e
+        node "$GITHUB_ACTION_PATH/dist/cli/main.js" "${args[@]}" --json "$DSH_FORGE_RECEIPT_PATH"
+        verify_exit=$?
+        set -e
+
+        receipt_path="$(node -e "const path = require('node:path'); process.stdout.write(path.resolve(process.argv[1]))" "$DSH_FORGE_RECEIPT_PATH")"
+        echo "exit_code=$verify_exit" >> "$GITHUB_OUTPUT"
+        echo "receipt_path=$receipt_path" >> "$GITHUB_OUTPUT"
+
+        if [[ -f "$receipt_path" ]]; then
+          echo "receipt_created=true" >> "$GITHUB_OUTPUT"
+          node "$GITHUB_ACTION_PATH/dist/action/report.js" "$receipt_path"
+        else
+          echo "receipt_created=false" >> "$GITHUB_OUTPUT"
+          echo "status=error" >> "$GITHUB_OUTPUT"
+          {
+            echo "### DSH Forge Receipt"
+            echo
+            echo "**ERROR**: verification did not produce a Receipt."
+          } >> "$GITHUB_STEP_SUMMARY"
+        fi
+
+    - name: Upload Receipt
+      if: ${{ inputs.upload-receipt == 'true' && steps.verify.outputs.receipt_created == 'true' }}
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: ${{ steps.verify.outputs.receipt_path }}
+        if-no-files-found: error
+        retention-days: 14
+
+    - name: Enforce verification result
+      if: ${{ inputs.fail-on-failure == 'true' && steps.verify.outputs.exit_code != '0' }}
+      shell: bash
+      env:
+        DSH_FORGE_EXIT_CODE: ${{ steps.verify.outputs.exit_code }}
+      run: |
+        echo "DSH Forge verification failed with exit code $DSH_FORGE_EXIT_CODE." >&2
+        exit "$DSH_FORGE_EXIT_CODE"

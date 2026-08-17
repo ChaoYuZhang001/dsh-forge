@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    tags: ['v*']
+    tags: ['v*.*.*']
 
 permissions:
   contents: write
@@ -18,6 +18,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - name: Check committed Action distribution
+        run: git diff --exit-code -- dist
       - name: Verify tag and package version
         shell: bash
         run: |
@@ -48,3 +50,11 @@ jobs:
             release_flags+=(--prerelease)
           fi
           gh release create "$GITHUB_REF_NAME" "${release_flags[@]}" "${{ steps.artifact.outputs.asset }}" SHA256SUMS
+      - name: Update major Action tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          package_version="$(node --print "require('./package.json').version")"
+          major_tag="v${package_version%%.*}"
+          git tag --force "$major_tag" "$GITHUB_SHA"
+          git push --force origin "refs/tags/$major_tag"

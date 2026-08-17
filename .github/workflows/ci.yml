@@ -25,6 +25,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - name: Check committed Action distribution
+        if: matrix.os == 'ubuntu-latest' && matrix.node == '22'
+        run: git diff --exit-code -- dist
       - run: node dist/cli/main.js verify fixtures/public/healthy-plugin --smoke
 
   secret-boundary:
@@ -39,3 +42,43 @@ jobs:
             echo 'credential-shaped file is tracked' >&2
             exit 1
           fi
+
+  action-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Consume the repository as an Action
+        id: forge
+        uses: ./
+        with:
+          target: fixtures/public/healthy-plugin
+          platform: linux-x64
+          artifact-name: action-smoke-receipt
+      - name: Check Action outputs and Receipt
+        shell: bash
+        env:
+          RECEIPT_STATUS: ${{ steps.forge.outputs.status }}
+          RECEIPT_PATH: ${{ steps.forge.outputs['receipt-path'] }}
+        run: |
+          test "$RECEIPT_STATUS" = "pass"
+          test -f "$RECEIPT_PATH"
+          node -e "const fs = require('node:fs'); const receipt = JSON.parse(fs.readFileSync(process.env.RECEIPT_PATH, 'utf8')); if (receipt.status !== 'pass') process.exit(1)"
+      - name: Reject an incompatible plugin through the Action gate
+        id: rejected
+        continue-on-error: true
+        uses: ./
+        with:
+          target: fixtures/public/incompatible-plugin
+          platform: linux-x64
+          smoke: 'false'
+          upload-receipt: 'false'
+          receipt-path: incompatible-receipt.json
+      - name: Check failure gate
+        if: always()
+        shell: bash
+        env:
+          ACTION_OUTCOME: ${{ steps.rejected.outcome }}
+          RECEIPT_STATUS: ${{ steps.rejected.outputs.status }}
+        run: |
+          test "$ACTION_OUTCOME" = "failure"
+          test "$RECEIPT_STATUS" = "fail"
