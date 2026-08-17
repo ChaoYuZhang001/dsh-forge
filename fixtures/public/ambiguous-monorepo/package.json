@@ -1,5 +1,5 @@
 {
-  "name": "dsh-forge-fixture-ambiguous-monorepo",
+  "name": "dsh-gate-fixture-ambiguous-monorepo",
   "version": "1.0.0",
   "private": true,
   "workspaces": ["packages/*", "plugins/*"]

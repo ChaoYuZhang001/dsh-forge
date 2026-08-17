@@ -1,9 +1,9 @@
 {
-  "name": "dsh-forge-fixture-incompatible",
+  "name": "dsh-gate-fixture-incompatible",
   "version": "1.0.0",
-  "description": "A deliberately incompatible DSH fixture used by dsh-forge tests.",
+  "description": "A deliberately incompatible DSH fixture used by dsh-gate tests.",
   "license": "MIT",
-  "repository": "https://github.com/ChaoYuZhang001/dsh-forge",
+  "repository": "https://github.com/ChaoYuZhang001/dsh-gate",
   "peerDependencies": {
     "@deepseek-ai/dsh-tools": ">=0.2.0 <0.3.0"
   },
@@ -11,7 +11,7 @@
     "client": {
       "platform": "web"
     },
-    "forge": {
+    "gate": {
       "compatibleWith": ">=0.2.0 <0.3.0",
       "permissions": ["unknown-permission"]
     }

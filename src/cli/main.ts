@@ -2,15 +2,18 @@
 import { writeFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
+import { generateMatrix, readMatrixConfig, writeMatrixOutputs } from '../matrix.js'
+import { writeCatalogOutputs } from '../catalog.js'
 import { loadTarget } from '../verifier/target.js'
 import { verifyTarget } from '../verifier/verify.js'
 import { VERSION } from '../version.js'
 
 function usage(): string {
-  return `dsh-forge ${VERSION}
+  return `dsh-gate ${VERSION}
 
 Usage:
-  dsh-forge verify <local-path-or-github-url> [options]
+  dsh-gate verify <local-path-or-github-url> [options]
+  dsh-gate matrix [config-path] [options]
 
 Options:
   --dsh-version <version>  DSH baseline (default: 0.1.0-rc.7)
@@ -19,7 +22,11 @@ Options:
   --path <package-path>      Plugin directory or package.json path inside a monorepo
   --smoke                   Run npm pack --dry-run with lifecycle scripts disabled
   --json <path>             Write the complete JSON Receipt to a file
-  --version                 Print the DSH Forge version
+  --markdown <path>         Write a Markdown compatibility matrix
+  --catalog-dir <path>      Write Desktop Catalog Provider files
+  --base-url <url>          Public base URL used in the Catalog manifest
+  --concurrency <number>    Maximum concurrent matrix verifications (default: 4)
+  --version                 Print the DSH Gate version
   --help                    Show this help
 `
 }
@@ -49,6 +56,24 @@ function printReceipt(receipt: Awaited<ReturnType<typeof verifyTarget>>): void {
   console.log(`Receipt status: ${receipt.status}`)
 }
 
+async function runMatrix(args: string[]): Promise<void> {
+  const configPath = args[1] && !args[1].startsWith('--') ? args[1] : 'matrix-targets.json'
+  const matrix = await generateMatrix(await readMatrixConfig(configPath), {
+    concurrency: Number(optionValue(args, '--concurrency', '4'))
+  })
+  const jsonPath = optionValue(args, '--json', 'catalog/matrix.json')
+  const markdownPath = optionValue(args, '--markdown', 'catalog/matrix.md')
+  const catalogDir = optionValue(args, '--catalog-dir', 'catalog')
+  const baseUrl = optionValue(args, '--base-url', 'https://chaoyuzhang001.github.io/dsh-gate')
+  await writeMatrixOutputs(matrix, jsonPath, markdownPath)
+  await writeCatalogOutputs(matrix, catalogDir, baseUrl)
+  console.log(`Matrix: ${jsonPath}`)
+  console.log(`Markdown: ${markdownPath}`)
+  console.log(`Catalog: ${catalogDir}`)
+  console.log(`Counts: ${matrix.counts.pass} pass / ${matrix.counts.warn} warn / ${matrix.counts.fail} fail / ${matrix.counts.error} error`)
+  if (matrix.counts.fail > 0 || matrix.counts.error > 0) process.exitCode = 1
+}
+
 async function main(): Promise<void> {
   const args = process.argv.slice(2)
   if (hasOption(args, '--version')) {
@@ -59,6 +84,17 @@ async function main(): Promise<void> {
     console.log(usage())
     return
   }
+
+  if (args[0] === 'matrix') {
+    try {
+      await runMatrix(args)
+    } catch (error) {
+      console.error(`dsh-gate: ${error instanceof Error ? error.message : String(error)}`)
+      process.exitCode = 1
+    }
+    return
+  }
+
   if (args[0] !== 'verify' || !args[1] || args[1].startsWith('--')) {
     console.error(usage())
     process.exitCode = 2
@@ -84,7 +120,7 @@ async function main(): Promise<void> {
     }
     if (receipt.status === 'fail') process.exitCode = 1
   } catch (error) {
-    console.error(`dsh-forge: ${error instanceof Error ? error.message : String(error)}`)
+    console.error(`dsh-gate: ${error instanceof Error ? error.message : String(error)}`)
     process.exitCode = 1
   }
 }

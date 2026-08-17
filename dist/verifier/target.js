@@ -72,7 +72,7 @@ function isPluginCandidate(packageJson) {
 }
 function githubHeaders() {
     const headers = {
-        'user-agent': `dsh-forge/${VERSION}`,
+        'user-agent': `dsh-gate/${VERSION}`,
         accept: 'application/vnd.github+json',
         'x-github-api-version': '2022-11-28'
     };

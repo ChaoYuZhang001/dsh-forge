@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Consume the repository as an Action
-        id: forge
+        id: accepted
         uses: ./
         with:
           target: fixtures/public/monorepo
@@ -57,8 +57,8 @@ jobs:
       - name: Check Action outputs and Receipt
         shell: bash
         env:
-          RECEIPT_STATUS: ${{ steps.forge.outputs.status }}
-          RECEIPT_PATH: ${{ steps.forge.outputs['receipt-path'] }}
+          RECEIPT_STATUS: ${{ steps.accepted.outputs.status }}
+          RECEIPT_PATH: ${{ steps.accepted.outputs['receipt-path'] }}
         run: |
           test "$RECEIPT_STATUS" = "pass"
           test -f "$RECEIPT_PATH"

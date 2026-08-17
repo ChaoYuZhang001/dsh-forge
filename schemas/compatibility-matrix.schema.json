@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ChaoYuZhang001/dsh-gate/schema/compatibility-matrix.schema.json",
+  "title": "DSH Gate compatibility matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "generatedAt", "generator", "baseline", "counts", "entries"],
+  "properties": {
+    "schemaVersion": { "const": "0.1" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": { "name": { "const": "dsh-gate" }, "version": { "type": "string", "minLength": 1 } }
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dshVersion", "platform"],
+      "properties": { "dshVersion": { "type": "string", "minLength": 1 }, "platform": { "type": "string", "minLength": 1 } }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pass", "warn", "fail", "error"],
+      "properties": { "pass": { "type": "integer", "minimum": 0 }, "warn": { "type": "integer", "minimum": 0 }, "fail": { "type": "integer", "minimum": 0 }, "error": { "type": "integer", "minimum": 0 } }
+    },
+    "entries": { "type": "array", "items": { "type": "object", "required": ["id", "displayName", "target", "categories", "status"], "properties": { "id": { "type": "string" }, "displayName": { "type": "string" }, "target": { "type": "string" }, "categories": { "type": "array" }, "status": { "enum": ["pass", "warn", "fail", "error"] } } } }
+  }
+}

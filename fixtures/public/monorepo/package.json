@@ -1,5 +1,5 @@
 {
-  "name": "dsh-forge-fixture-monorepo",
+  "name": "dsh-gate-fixture-monorepo",
   "version": "1.0.0",
   "private": true,
   "workspaces": ["packages/*"]

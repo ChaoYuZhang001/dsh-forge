@@ -2,7 +2,7 @@
 
 ## Public artifacts
 
-Source, schemas, tests, sanitized fixtures, generated documentation, checksums, SBOMs, Action metadata, and the compiled Action distribution may be public. Release tags must match the package version, for example `v0.3.0-alpha.1`.
+Source, schemas, tests, sanitized fixtures, generated documentation, checksums, SBOMs, Action metadata, and the compiled Action distribution may be public. Release tags must match the package version, for example `v0.4.0-alpha.1`.
 
 ## Protected material
 

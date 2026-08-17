@@ -1,11 +1,11 @@
 {
-  "name": "dsh-forge",
-  "version": "0.3.0-alpha.1",
+  "name": "dsh-gate",
+  "version": "0.4.0-alpha.1",
   "description": "Static compatibility and permission verification for DeepSeek Harness plugins.",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "dsh-forge": "dist/cli/main.js"
+    "dsh-gate": "dist/cli/main.js"
   },
   "exports": {
     ".": "./dist/index.js"
@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test tests/verifier.test.mjs",
+    "test": "npm run build && node --test tests/verifier.test.mjs tests/matrix.test.mjs",
     "check": "npm run build && npm test",
     "verify:fixture": "npm run build && node dist/cli/main.js verify fixtures/public/healthy-plugin --smoke"
   },

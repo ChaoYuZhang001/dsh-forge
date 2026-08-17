@@ -1,0 +1,59 @@
+name: DSH Gate Compatibility Matrix
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Anchor generated evidence to the checked-out revision
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
+      - name: Generate matrix and catalog preview
+        id: generate
+        continue-on-error: true
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          node dist/cli/main.js matrix matrix-targets.json \
+            --json artifacts/matrix.json \
+            --markdown artifacts/matrix.md \
+            --catalog-dir artifacts/catalog \
+            --base-url https://chaoyuzhang001.github.io/dsh-gate \
+            --concurrency 4
+          status=$?
+          set -e
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          {
+            echo '## DSH Gate compatibility matrix'
+            echo
+            sed -n '1,12p' artifacts/matrix.md
+            echo
+            echo '> Catalog files are uploaded for review only; this workflow does not deploy a public HTTPS provider.'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload matrix and catalog evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: dsh-gate-matrix-${{ github.sha }}
+          path: artifacts
+          if-no-files-found: error
+          retention-days: 14

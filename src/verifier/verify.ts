@@ -28,7 +28,7 @@ function addDependencyFindings(manifest: PluginManifest, baseline: string, findi
 }
 
 function addPermissionFindings(manifest: PluginManifest, findings: Finding[], checks: CheckResult[]): void {
-  const declared = new Set(manifest.forge?.permissions ?? [])
+  const declared = new Set(manifest.gate?.permissions ?? [])
   const scripts = Object.keys(manifest.scripts)
   const inferred: string[] = []
   if (scripts.some((script) => ['preinstall', 'install', 'postinstall'].includes(script))) inferred.push('install-script')
@@ -38,12 +38,12 @@ function addPermissionFindings(manifest: PluginManifest, findings: Finding[], ch
 
   const undeclared = inferred.filter((permission) => permission !== 'install-script' && !declared.has(permission))
   if (undeclared.length) {
-    findings.push({ code: 'forge.permission-underdeclared', severity: 'warning', message: `The verifier inferred permission(s) not declared in dsh.forge.permissions: ${[...new Set(undeclared)].join(', ')}.` })
+    findings.push({ code: 'gate.permission-underdeclared', severity: 'warning', message: `The verifier inferred permission(s) not declared in dsh.gate.permissions: ${[...new Set(undeclared)].join(', ')}.` })
   }
   if (inferred.includes('install-script')) {
     findings.push({ code: 'package.install-script', severity: 'warning', message: 'The package declares an install lifecycle script; source review is required before allowing builds.' })
   }
-  checks.push({ id: 'forge.permissions', status: 'pass', summary: inferred.length ? `Declared: ${[...declared].join(', ') || 'none'}; inferred for review: ${inferred.join(', ')}.` : `Declared: ${[...declared].join(', ') || 'none'}; no high-signal permissions inferred.` })
+  checks.push({ id: 'gate.permissions', status: 'pass', summary: inferred.length ? `Declared: ${[...declared].join(', ') || 'none'}; inferred for review: ${inferred.join(', ')}.` : `Declared: ${[...declared].join(', ') || 'none'}; no high-signal permissions inferred.` })
 }
 
 async function runSafePackSmoke(target: LoadedTarget): Promise<CheckResult> {
@@ -73,18 +73,18 @@ export async function verifyTarget(target: LoadedTarget, options: VerifyOptions)
   if (manifest) {
     checks.push({ id: 'package.identity', status: 'pass', summary: `${manifest.id}@${manifest.version} identified.` })
     addDependencyFindings(manifest, options.dshVersion, findings, checks)
-    if (manifest.forge?.compatibleWith) {
-      const compatible = satisfiesRange(options.dshVersion, manifest.forge.compatibleWith)
-      checks.push({ id: 'forge.compatibility', status: compatible ? 'pass' : 'fail', summary: compatible ? `dsh.forge.compatibleWith accepts ${options.dshVersion}.` : `dsh.forge.compatibleWith rejects ${options.dshVersion}.` })
-      if (!compatible) findings.push({ code: 'forge.compatibility-failed', severity: 'error', message: `Declared compatibility range ${manifest.forge.compatibleWith} rejects ${options.dshVersion}.` })
+    if (manifest.gate?.compatibleWith) {
+      const compatible = satisfiesRange(options.dshVersion, manifest.gate.compatibleWith)
+      checks.push({ id: 'gate.compatibility', status: compatible ? 'pass' : 'fail', summary: compatible ? `dsh.gate.compatibleWith accepts ${options.dshVersion}.` : `dsh.gate.compatibleWith rejects ${options.dshVersion}.` })
+      if (!compatible) findings.push({ code: 'gate.compatibility-failed', severity: 'error', message: `Declared compatibility range ${manifest.gate.compatibleWith} rejects ${options.dshVersion}.` })
     } else {
-      checks.push({ id: 'forge.compatibility', status: 'not-run', summary: 'No explicit dsh.forge.compatibleWith range was declared.' })
+      checks.push({ id: 'gate.compatibility', status: 'not-run', summary: 'No explicit dsh.gate.compatibleWith range was declared.' })
     }
-    if (manifest.forge?.platforms && !manifest.forge.platforms.includes(options.platform)) {
-      findings.push({ code: 'forge.platform-failed', severity: 'error', message: `The current platform ${options.platform} is not declared in dsh.forge.platforms.` })
-      checks.push({ id: 'forge.platform', status: 'fail', summary: `Current platform ${options.platform} is not declared.` })
+    if (manifest.gate?.platforms && !manifest.gate.platforms.includes(options.platform)) {
+      findings.push({ code: 'gate.platform-failed', severity: 'error', message: `The current platform ${options.platform} is not declared in dsh.gate.platforms.` })
+      checks.push({ id: 'gate.platform', status: 'fail', summary: `Current platform ${options.platform} is not declared.` })
     } else {
-      checks.push({ id: 'forge.platform', status: 'pass', summary: manifest.forge?.platforms ? `Current platform ${options.platform} is declared.` : 'No platform restriction was declared.' })
+      checks.push({ id: 'gate.platform', status: 'pass', summary: manifest.gate?.platforms ? `Current platform ${options.platform} is declared.` : 'No platform restriction was declared.' })
     }
     addPermissionFindings(manifest, findings, checks)
   } else {
@@ -106,12 +106,21 @@ export async function verifyTarget(target: LoadedTarget, options: VerifyOptions)
   } else checks.push({ id: 'package.pack-smoke', status: 'not-run', summary: 'Pack smoke was not requested; use --smoke to run npm pack with scripts disabled.' })
 
   const receipt: VerifyReceipt = {
-    schemaVersion: '0.2',
+    schemaVersion: '0.3',
     generatedAt: new Date().toISOString(),
-    verifier: { name: 'dsh-forge', version: VERSION },
+    verifier: { name: 'dsh-gate', version: VERSION },
     target: target.target,
     baseline: { dshVersion: options.dshVersion, platform: options.platform },
-    plugin: manifest ? { id: manifest.id, version: manifest.version, description: manifest.description } : undefined,
+    plugin: manifest ? {
+      id: manifest.id,
+      version: manifest.version,
+      description: manifest.description,
+      compatibleWith: manifest.gate?.compatibleWith,
+      permissions: manifest.gate?.permissions ?? [],
+      platforms: manifest.gate?.platforms,
+      requiresRestart: manifest.gate?.requiresRestart,
+      nativeBinaries: manifest.gate?.nativeBinaries
+    } : undefined,
     status: receiptStatus(findings),
     checks,
     findings,

@@ -99,7 +99,7 @@ function isPluginCandidate(packageJson: JsonObject): boolean {
 
 function githubHeaders(): Record<string, string> {
   const headers: Record<string, string> = {
-    'user-agent': `dsh-forge/${VERSION}`,
+    'user-agent': `dsh-gate/${VERSION}`,
     accept: 'application/vnd.github+json',
     'x-github-api-version': '2022-11-28'
   }

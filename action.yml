@@ -1,6 +1,6 @@
-name: DSH Forge Verify
+name: DSH Gate Verify
 description: Verify a DeepSeek Harness plugin contract and publish a sanitized JSON Receipt.
-author: DSH Forge contributors
+author: DSH Gate contributors
 
 branding:
   icon: shield
@@ -34,7 +34,7 @@ inputs:
   receipt-path:
     description: Path where the JSON Receipt is written.
     required: false
-    default: dsh-forge-receipt.json
+    default: dsh-gate-receipt.json
   upload-receipt:
     description: Upload the JSON Receipt as a workflow artifact.
     required: false
@@ -42,7 +42,7 @@ inputs:
   artifact-name:
     description: Name of the uploaded Receipt artifact.
     required: false
-    default: dsh-forge-receipt
+    default: dsh-gate-receipt
   fail-on-failure:
     description: Fail the workflow when verification cannot run or the Receipt status is fail.
     required: false
@@ -67,35 +67,35 @@ runs:
       id: verify
       shell: bash
       env:
-        DSH_FORGE_TARGET: ${{ inputs.target }}
-        DSH_FORGE_DSH_VERSION: ${{ inputs.dsh-version }}
-        DSH_FORGE_PLATFORM: ${{ inputs.platform }}
-        DSH_FORGE_REF: ${{ inputs.ref }}
-        DSH_FORGE_PACKAGE_PATH: ${{ inputs.package-path }}
-        DSH_FORGE_SMOKE: ${{ inputs.smoke }}
-        DSH_FORGE_RECEIPT_PATH: ${{ inputs.receipt-path }}
+        DSH_GATE_TARGET: ${{ inputs.target }}
+        DSH_GATE_DSH_VERSION: ${{ inputs.dsh-version }}
+        DSH_GATE_PLATFORM: ${{ inputs.platform }}
+        DSH_GATE_REF: ${{ inputs.ref }}
+        DSH_GATE_PACKAGE_PATH: ${{ inputs.package-path }}
+        DSH_GATE_SMOKE: ${{ inputs.smoke }}
+        DSH_GATE_RECEIPT_PATH: ${{ inputs.receipt-path }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
       run: |
-        args=(verify "$DSH_FORGE_TARGET" --dsh-version "$DSH_FORGE_DSH_VERSION")
-        if [[ -n "$DSH_FORGE_REF" ]]; then
-          args+=(--ref "$DSH_FORGE_REF")
+        args=(verify "$DSH_GATE_TARGET" --dsh-version "$DSH_GATE_DSH_VERSION")
+        if [[ -n "$DSH_GATE_REF" ]]; then
+          args+=(--ref "$DSH_GATE_REF")
         fi
-        if [[ -n "$DSH_FORGE_PACKAGE_PATH" ]]; then
-          args+=(--path "$DSH_FORGE_PACKAGE_PATH")
+        if [[ -n "$DSH_GATE_PACKAGE_PATH" ]]; then
+          args+=(--path "$DSH_GATE_PACKAGE_PATH")
         fi
-        if [[ -n "$DSH_FORGE_PLATFORM" ]]; then
-          args+=(--platform "$DSH_FORGE_PLATFORM")
+        if [[ -n "$DSH_GATE_PLATFORM" ]]; then
+          args+=(--platform "$DSH_GATE_PLATFORM")
         fi
-        if [[ "$DSH_FORGE_SMOKE" == "true" ]]; then
+        if [[ "$DSH_GATE_SMOKE" == "true" ]]; then
           args+=(--smoke)
         fi
 
         set +e
-        node "$GITHUB_ACTION_PATH/dist/cli/main.js" "${args[@]}" --json "$DSH_FORGE_RECEIPT_PATH"
+        node "$GITHUB_ACTION_PATH/dist/cli/main.js" "${args[@]}" --json "$DSH_GATE_RECEIPT_PATH"
         verify_exit=$?
         set -e
 
-        receipt_path="$(node -e "const path = require('node:path'); process.stdout.write(path.resolve(process.argv[1]))" "$DSH_FORGE_RECEIPT_PATH")"
+        receipt_path="$(node -e "const path = require('node:path'); process.stdout.write(path.resolve(process.argv[1]))" "$DSH_GATE_RECEIPT_PATH")"
         echo "exit_code=$verify_exit" >> "$GITHUB_OUTPUT"
         echo "receipt_path=$receipt_path" >> "$GITHUB_OUTPUT"
 
@@ -106,7 +106,7 @@ runs:
           echo "receipt_created=false" >> "$GITHUB_OUTPUT"
           echo "status=error" >> "$GITHUB_OUTPUT"
           {
-            echo "### DSH Forge Receipt"
+            echo "### DSH Gate Receipt"
             echo
             echo "**ERROR**: verification did not produce a Receipt."
           } >> "$GITHUB_STEP_SUMMARY"
@@ -125,7 +125,7 @@ runs:
       if: ${{ inputs.fail-on-failure == 'true' && steps.verify.outputs.exit_code != '0' }}
       shell: bash
       env:
-        DSH_FORGE_EXIT_CODE: ${{ steps.verify.outputs.exit_code }}
+        DSH_GATE_EXIT_CODE: ${{ steps.verify.outputs.exit_code }}
       run: |
-        echo "DSH Forge verification failed with exit code $DSH_FORGE_EXIT_CODE." >&2
-        exit "$DSH_FORGE_EXIT_CODE"
+        echo "DSH Gate verification failed with exit code $DSH_GATE_EXIT_CODE." >&2
+        exit "$DSH_GATE_EXIT_CODE"
