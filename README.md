@@ -47,6 +47,9 @@ The current catalog remains a reviewable preview until a real HTTPS JSON
 Provider is deployed. A catalog entry is never an endorsement or a silent
 installation decision.
 
+See [docs/adoption.md](docs/adoption.md) for the concrete plugin-author,
+market-operator, and release rollout paths.
+
 ## Quick start
 
 ```sh
