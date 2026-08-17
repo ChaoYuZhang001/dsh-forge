@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.2
+      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.3
         with:
           target: .
           github-token: ${{ github.token }}
@@ -131,7 +131,7 @@ See [SECURITY.md](SECURITY.md), [CONTRIBUTING.md](CONTRIBUTING.md), and [docs/re
 
 ## Status
 
-`v0.4.0-alpha.2` adds the compatibility matrix, pinned Desktop wire schemas, strict conformance fixtures, adoption documentation, and an opt-in Pages deployment workflow on top of immutable GitHub provenance. The Pages deployment remains diagnostic because GitHub Pages does not serve the standard extensionless endpoint with a JSON media type. DSH Gate does not install plugins, mutate a DSH profile, or claim a live catalog endpoint until the HTTPS Provider smoke passes.
+`v0.4.0-alpha.3` adds the fail-closed live Provider smoke and its cross-platform tests on top of the alpha2 compatibility matrix, pinned Desktop wire schemas, strict conformance fixtures, and adoption documentation. The Pages deployment remains diagnostic because GitHub Pages does not serve the standard extensionless endpoint with a JSON media type. DSH Gate does not install plugins, mutate a DSH profile, or claim a live catalog endpoint until the HTTPS Provider smoke passes.
 
 ## License
 
