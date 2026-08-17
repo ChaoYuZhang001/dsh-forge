@@ -25,7 +25,7 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.1
+      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.3
         with:
           target: .
           github-token: ${{ github.token }}
