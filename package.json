@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test tests/verifier.test.mjs tests/matrix.test.mjs",
+    "test": "npm run build && node --test tests/verifier.test.mjs tests/matrix.test.mjs tests/catalog-contract.test.mjs",
     "check": "npm run build && npm test",
     "verify:fixture": "npm run build && node dist/cli/main.js verify fixtures/public/healthy-plugin --smoke"
   },
@@ -28,6 +28,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "typescript": "^5.7.2"
   }
 }
