@@ -1,0 +1,25 @@
+name: Feature request
+description: Propose a verifier, receipt, or lifecycle capability.
+title: "[feature] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: What DSH plugin or release decision is currently hard to make?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Public/private boundary
+      description: Does this require user data, private plugins, credentials, or a new secret?
+    validations:
+      required: true

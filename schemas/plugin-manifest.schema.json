@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ChaoYuZhang001/dsh-forge/schema/plugin-manifest.schema.json",
+  "title": "DSH Forge plugin manifest",
+  "description": "Optional dsh.forge metadata consumed by the DSH Forge alpha verifier.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "compatibleWith": { "type": "string", "minLength": 1 },
+    "permissions": {
+      "type": "array",
+      "items": { "enum": ["filesystem", "shell", "network", "secrets", "subprocess", "native"] },
+      "uniqueItems": true
+    },
+    "platforms": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "requiresRestart": { "type": "boolean" },
+    "nativeBinaries": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

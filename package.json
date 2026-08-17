@@ -1,0 +1,33 @@
+{
+  "name": "dsh-forge",
+  "version": "0.1.0-alpha.1",
+  "description": "Static compatibility and permission verification for DeepSeek Harness plugins.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "dsh-forge": "dist/cli/main.js"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "schemas",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "check": "npm run build && npm test",
+    "verify:fixture": "npm run build && node dist/cli/main.js verify fixtures/public/healthy-plugin --smoke"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
+  }
+}

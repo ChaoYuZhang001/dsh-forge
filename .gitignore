@@ -1,0 +1,17 @@
+node_modules/
+dist/
+coverage/
+release/
+reports/
+artifacts/
+.DS_Store
+*.log
+*.tsbuildinfo
+.env
+.env.*
+.dsh/
+certificate/
+*.pem
+*.p12
+*.pfx
+*.key

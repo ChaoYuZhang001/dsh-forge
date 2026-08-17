@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Verify tag and package version
+        shell: bash
+        run: |
+          set -euo pipefail
+          package_version="$(node --print "require('./package.json').version")"
+          test "${GITHUB_REF_NAME}" = "v${package_version}"
+      - name: Inspect package contents
+        run: npm pack --dry-run --ignore-scripts
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --generate-notes

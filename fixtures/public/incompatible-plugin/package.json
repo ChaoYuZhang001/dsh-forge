@@ -1,0 +1,19 @@
+{
+  "name": "dsh-forge-fixture-incompatible",
+  "version": "1.0.0",
+  "description": "A deliberately incompatible DSH fixture used by dsh-forge tests.",
+  "license": "MIT",
+  "repository": "https://github.com/ChaoYuZhang001/dsh-forge",
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": ">=0.2.0 <0.3.0"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web"
+    },
+    "forge": {
+      "compatibleWith": ">=0.2.0 <0.3.0",
+      "permissions": ["unknown-permission"]
+    }
+  }
+}

@@ -1,0 +1,37 @@
+name: Verification or CLI bug
+description: Report a reproducible verifier result or CLI failure.
+title: "[bug] "
+labels: [bug, status:needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not paste tokens, cookies, user transcripts, private plugin source, or raw logs with machine paths.
+  - type: input
+    id: plugin
+    attributes:
+      label: Plugin
+      description: Public repository URL and version.
+    validations:
+      required: true
+  - type: input
+    id: dsh
+    attributes:
+      label: DSH baseline
+      placeholder: dsh-v0.1.0-rc.7
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      placeholder: darwin-arm64
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and sanitized output
+      render: shell
+    validations:
+      required: true
