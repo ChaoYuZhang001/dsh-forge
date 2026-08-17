@@ -4,6 +4,7 @@ coverage/
 release/
 reports/
 artifacts/
+*.tgz
 .DS_Store
 *.log
 *.tsbuildinfo

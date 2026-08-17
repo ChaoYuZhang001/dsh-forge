@@ -26,6 +26,16 @@ jobs:
           test "${GITHUB_REF_NAME}" = "v${package_version}"
       - name: Inspect package contents
         run: npm pack --dry-run --ignore-scripts
+      - name: Pack release artifact and checksum
+        id: artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          package_version="$(node --print "require('./package.json').version")"
+          asset="dsh-forge-${package_version}.tgz"
+          npm pack --ignore-scripts
+          sha256sum "$asset" > SHA256SUMS
+          echo "asset=$asset" >> "$GITHUB_OUTPUT"
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -37,4 +47,4 @@ jobs:
           if [[ "$package_version" == *-* ]]; then
             release_flags+=(--prerelease)
           fi
-          gh release create "$GITHUB_REF_NAME" "${release_flags[@]}"
+          gh release create "$GITHUB_REF_NAME" "${release_flags[@]}" "${{ steps.artifact.outputs.asset }}" SHA256SUMS
