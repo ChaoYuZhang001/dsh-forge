@@ -1,0 +1,6 @@
+{
+  "name": "dsh-forge-fixture-ambiguous-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["packages/*", "plugins/*"]
+}

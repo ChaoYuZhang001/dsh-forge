@@ -1,0 +1,22 @@
+{
+  "name": "dsh-forge-fixture-monorepo-plugin",
+  "version": "1.0.0",
+  "description": "A sanitized DSH monorepo package fixture.",
+  "license": "MIT",
+  "repository": "https://github.com/ChaoYuZhang001/dsh-forge",
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": ">=0.1.0-rc.1 <0.1.0 || >=0.1.0-rc.1 <0.2.0-0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "forge": {
+      "compatibleWith": ">=0.1.0-rc.1 <0.1.0 || >=0.1.0-rc.1 <0.2.0-0",
+      "permissions": [],
+      "platforms": ["darwin-arm64", "darwin-x64", "linux-x64", "win32-x64"],
+      "requiresRestart": false,
+      "nativeBinaries": false
+    }
+  }
+}

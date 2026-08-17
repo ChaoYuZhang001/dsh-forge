@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0-alpha.1 - 2026-08-18
+
+- Added deterministic DSH package discovery under `packages/`, `plugins/`, and `apps/`.
+- Added explicit `--path` and GitHub `/tree/<ref>/<package-path>` targeting.
+- Added resolved commit SHA, package blob SHA, repository ID, license, archived state, and package path to Receipt schema `0.2`.
+- Added GitHub request timeouts and retries for HTTP 429 and transient server failures.
+- Added sanitized monorepo fixtures and ambiguity tests; multiple plugin packages require an explicit path.
+- Kept remote verification static and never executed repository or package lifecycle code.
+
 ## 0.2.0-alpha.1 - 2026-08-18
 
 - Added a reusable GitHub Action with workflow Summary output and a sanitized Receipt artifact.

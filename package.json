@@ -1,6 +1,6 @@
 {
   "name": "dsh-forge",
-  "version": "0.2.0-alpha.1",
+  "version": "0.3.0-alpha.1",
   "description": "Static compatibility and permission verification for DeepSeek Harness plugins.",
   "license": "MIT",
   "type": "module",

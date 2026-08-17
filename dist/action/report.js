@@ -18,12 +18,15 @@ export function renderActionSummary(receipt) {
         `| DSH baseline | ${markdownCell(receipt.baseline.dshVersion)} |`,
         `| Platform | ${markdownCell(receipt.baseline.platform)} |`,
         `| Source | ${markdownCell(receipt.target.reference)} |`,
+        `| Package path | ${markdownCell(receipt.target.packagePath ?? 'package.json')} |`,
         '',
         '#### Checks',
         '',
         '| Check | Status | Summary |',
         '| --- | --- | --- |'
     ];
+    if (receipt.target.commitSha)
+        lines.splice(11, 0, `| Commit | \`${receipt.target.commitSha}\` |`);
     for (const check of receipt.checks) {
         lines.push(`| ${markdownCell(check.id)} | ${check.status.toUpperCase()} | ${markdownCell(check.summary)} |`);
     }

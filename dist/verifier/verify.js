@@ -93,10 +93,14 @@ export async function verifyTarget(target, options) {
     else {
         checks.push({ id: 'package.identity', status: 'fail', summary: 'The package manifest could not be identified.' });
     }
-    if (target.target.kind === 'github')
-        checks.push({ id: 'source.provenance', status: 'pass', summary: `Source read from ${target.target.reference} at ref ${target.target.ref}.` });
-    else
-        checks.push({ id: 'source.provenance', status: 'pass', summary: 'Source read from a local path; commit provenance is not inferred by the alpha verifier.' });
+    if (target.target.kind === 'github') {
+        const revision = target.target.commitSha ?? target.target.ref ?? 'unknown revision';
+        const packagePath = target.target.packagePath ?? 'package.json';
+        checks.push({ id: 'source.provenance', status: 'pass', summary: `Source read from ${target.target.reference} at ${revision} (${packagePath}).` });
+    }
+    else {
+        checks.push({ id: 'source.provenance', status: 'pass', summary: `Source read from a local path (${target.target.packagePath ?? 'package.json'}); commit provenance was not inferred.` });
+    }
     if (options.smoke) {
         const smokeCheck = await runSafePackSmoke(target);
         checks.push(smokeCheck);
@@ -106,7 +110,7 @@ export async function verifyTarget(target, options) {
     else
         checks.push({ id: 'package.pack-smoke', status: 'not-run', summary: 'Pack smoke was not requested; use --smoke to run npm pack with scripts disabled.' });
     const receipt = {
-        schemaVersion: '0.1',
+        schemaVersion: '0.2',
         generatedAt: new Date().toISOString(),
         verifier: { name: 'dsh-forge', version: VERSION },
         target: target.target,

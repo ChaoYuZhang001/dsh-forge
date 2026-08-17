@@ -1,4 +1,4 @@
-export { loadTarget } from './verifier/target.js'
+export { loadTarget, parseGitHubReference } from './verifier/target.js'
 export { verifyTarget } from './verifier/verify.js'
 export { satisfiesRange, parseVersion, compareVersions } from './verifier/semver.js'
 export { allowedPermissions, readPluginManifest } from './manifest/schema.js'

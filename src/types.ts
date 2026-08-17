@@ -43,8 +43,13 @@ export interface VerifyOptions {
   smoke: boolean
 }
 
+export interface LoadTargetOptions {
+  ref?: string
+  packagePath?: string
+}
+
 export interface VerifyReceipt {
-  schemaVersion: '0.1'
+  schemaVersion: '0.2'
   generatedAt: string
   verifier: {
     name: 'dsh-forge'
@@ -54,6 +59,12 @@ export interface VerifyReceipt {
     kind: 'local' | 'github'
     reference: string
     ref?: string
+    packagePath?: string
+    commitSha?: string
+    packageBlobSha?: string
+    repositoryId?: number
+    license?: string | null
+    archived?: boolean
   }
   baseline: {
     dshVersion: string

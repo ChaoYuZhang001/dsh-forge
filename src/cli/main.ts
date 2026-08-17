@@ -15,7 +15,8 @@ Usage:
 Options:
   --dsh-version <version>  DSH baseline (default: 0.1.0-rc.7)
   --platform <platform>     Platform tuple (default: current Node platform/arch)
-  --ref <git-ref>           GitHub branch or tag (default: main)
+  --ref <git-ref>           GitHub branch, tag, or commit (default: repository default)
+  --path <package-path>      Plugin directory or package.json path inside a monorepo
   --smoke                   Run npm pack --dry-run with lifecycle scripts disabled
   --json <path>             Write the complete JSON Receipt to a file
   --version                 Print the DSH Forge version
@@ -65,7 +66,10 @@ async function main(): Promise<void> {
   }
 
   try {
-    const target = await loadTarget(args[1], optionValue(args, '--ref', 'main'))
+    const target = await loadTarget(args[1], {
+      ref: optionValue(args, '--ref', '') || undefined,
+      packagePath: optionValue(args, '--path', '') || undefined
+    })
     const receipt = await verifyTarget(target, {
       dshVersion: optionValue(args, '--dsh-version', '0.1.0-rc.7'),
       platform: optionValue(args, '--platform', currentPlatform()),
