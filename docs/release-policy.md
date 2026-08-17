@@ -14,4 +14,4 @@ Every release must pass `npm test`, secret scanning, package-content inspection,
 
 The reusable Action must be tested from committed `dist/` files without a build step. Stable major Action aliases such as `v0` may only be moved after the immutable release tag succeeds; consumers should prefer an immutable full tag or commit SHA.
 
-Third-party Actions used by the reusable Action must be pinned to a full commit SHA with the release version recorded in a comment.
+Third-party Actions used by repository workflows or the reusable Action must be pinned to a full commit SHA with the release version recorded in a comment.

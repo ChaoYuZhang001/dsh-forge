@@ -6,6 +6,7 @@
 - Added an Action consumer smoke test that runs the committed distribution without a build step.
 - Added success and failure gate coverage plus a release-managed `v0` Action alias.
 - Pinned the Receipt artifact uploader to the immutable `v7.0.1` commit.
+- Updated repository workflows to the current Node 24-based checkout and setup actions, pinned by commit.
 - Made `package.json` the single source for the CLI version and GitHub API User-Agent.
 - Added the verifier version to every JSON Receipt for reproducible CI evidence.
 - Kept verification static and continued to disable plugin lifecycle scripts.
