@@ -20,6 +20,36 @@ DSH Gate checks a plugin before it is installed into a real profile:
 
 The alpha never executes plugin lifecycle scripts and does not mutate `~/.dsh`.
 
+## Where it fits in the ecosystem
+
+DSH Gate is not a second plugin market and it is not a Desktop installer. It is
+the verification and provenance layer between a public plugin source and a
+real DSH profile:
+
+```text
+plugin repository -> immutable source snapshot -> DSH Gate Receipt -> market decision -> explicit user install
+```
+
+Adjacent projects already cover the other layers:
+
+| Layer | Typical responsibility | DSH Gate boundary |
+| --- | --- | --- |
+| Harness runtime | Load and run plugins | Never replaces the runtime |
+| Plugin directories and markets | Discover, rank, and distribute entries | Consumes evidence; does not own listings |
+| Desktop shells | Provide a local UI and profile controls | Publishes a compatible Provider payload; does not install |
+| Forge/developer environments | Create, test, and isolate plugin work | Verifies the resulting package without copying a profile |
+| DSH Gate | Compatibility, permission, platform, and source evidence | This repository |
+
+The adoption path is deliberately concrete: plugin authors can add the GitHub
+Action to pull requests, and a market or Desktop host can consume the same
+Receipt-derived `pass`/`warn`/`fail` result before showing an install action.
+The current catalog remains a reviewable preview until the Pages deployment is
+enabled and its HTTPS JSON responses are independently verified. A catalog
+entry is never an endorsement or a silent installation decision.
+
+See [docs/adoption.md](docs/adoption.md) for the concrete plugin-author,
+market-operator, and release rollout paths.
+
 ## Quick start
 
 ```sh
@@ -101,7 +131,7 @@ See [SECURITY.md](SECURITY.md), [CONTRIBUTING.md](CONTRIBUTING.md), and [docs/re
 
 ## Status
 
-`v0.4.0-alpha.1` adds the compatibility matrix and a generated Desktop Catalog Provider payload on top of immutable GitHub provenance. It does not install plugins, mutate a DSH profile, or publish a live catalog endpoint. Transactional profile installation, rollback, and the desktop operator will build on this Receipt contract in later releases.
+`v0.4.0-alpha.1` adds the compatibility matrix and a generated Desktop Catalog Provider payload on top of immutable GitHub provenance. The pinned Desktop wire schemas are tested with AJV conformance fixtures. It does not install plugins, mutate a DSH profile, or publish a live catalog endpoint. Transactional profile installation, rollback, and the desktop operator will build on this Receipt contract in later releases.
 
 ## License
 

@@ -6,6 +6,7 @@
 - Added a deterministic compatibility matrix for a curated list of public DSH plugins.
 - Added resolved commit/package provenance, stable counts, Markdown output, and machine-readable matrix schemas.
 - Added generated Desktop Community Market Provider manifest and `/v1/plugins` payloads with visible verification status and declared capabilities.
+- Pinned the Desktop Community Market 1.0.0 wire schemas with source commit and MIT attribution, and added strict AJV conformance coverage for generated output and hostile provider input.
 - Added a scheduled GitHub Actions workflow that uploads matrix and catalog evidence without installing or mutating a DSH profile.
 - Kept the catalog payload as an undeployed preview until an HTTPS JSON provider with the required content type is configured.
 
