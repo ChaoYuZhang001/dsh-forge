@@ -95,6 +95,20 @@ GITHUB_TOKEN=... SOURCE_DATE_EPOCH=1787011200 \\
 
 The generated [`catalog/`](catalog/) directory is public evidence and a provider payload preview. The current GitHub Pages diagnostic deployment serves `manifest.json` correctly but serves the extensionless `/v1/plugins` payload as `application/octet-stream`; Desktop rejects that response. Do not add the Pages manifest to Desktop until a host returns both documents as `application/json` and `npm run verify:provider -- <manifest-url>` passes. A `pass` or `warn` entry is not an endorsement or a security audit; `fail` entries remain visible so the market cannot silently turn an unresolved plugin into a recommendation.
 
+Build a static Provider site for a host that can apply the generated `_headers`
+file, such as Cloudflare Pages:
+
+```sh
+npm run build:provider-site -- https://provider.example/dsh-gate
+```
+
+The command reads the checked-in catalog as structured JSON, rewrites the
+endpoint for that base URL, and writes `manifest.json`, extensionless
+`v1/plugins`, `_headers`, and `.nojekyll` under the ignored
+`artifacts/provider-site/` directory. A custom output must remain under
+`artifacts/`. Building the artifact does not prove that a deployment serves the
+required media type; verify the anonymous HTTPS URL before sharing it.
+
 ## GitHub Action
 
 Plugin repositories can verify every pull request without installing or building DSH Gate:

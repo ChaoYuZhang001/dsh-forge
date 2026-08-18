@@ -3,6 +3,22 @@
 DSH Gate is useful when it is placed in an existing DSH workflow. It is not a
 replacement for a plugin market, a Desktop shell, or the DSH installer.
 
+## Who uses it
+
+DSH Gate has three different consumers. They should not be described as one
+generic end user:
+
+1. Plugin authors add the Action and receive a compatibility, permission, and
+   provenance Receipt on every pull request.
+2. Market and Desktop operators consume the Provider manifest and page, then
+   decide how a `pass`, `warn`, or `fail` result affects their own install UI.
+3. Desktop users consume the evidence through that market UI. They do not need
+   to install DSH Gate, and DSH Gate never changes their profile.
+
+The first useful adoption loop is therefore one independent plugin repository
+using the Action plus one independent market or Desktop consumer reading the
+Provider. Broad end-user promotion comes after those two integrations exist.
+
 ## Plugin authors
 
 Add the reusable Action to pull requests and pushes. The Action reads the
@@ -55,18 +71,46 @@ deployment must copy `catalog/manifest.json` to `manifest.json` and
 manifest URL to users until those URLs have been checked from the same network
 boundary as Desktop.
 
-The included workflow performs that copy, deploys the files, and then runs the
-same anonymous HTTPS smoke used for release verification. GitHub Pages serves
-extensionless files as `application/octet-stream`, so the standard
-`/v1/plugins` endpoint currently fails closed after deployment. Use a host or
-edge configuration that can set `Content-Type: application/json`; do not weaken
-the Desktop contract or rename the standard endpoint to make a static host pass.
+The included workflow calls the same site builder, deploys its artifact, and
+then runs the anonymous HTTPS smoke used for release verification. GitHub Pages
+does not apply the generated `_headers` file and serves extensionless files as
+`application/octet-stream`, so the standard `/v1/plugins` endpoint currently
+fails closed after deployment. Use a host or edge configuration that can set
+`Content-Type: application/json`; do not weaken the Desktop contract or rename
+the standard endpoint to make a static host pass.
 
-Verify any candidate host from the repository root:
+Prepare a static site artifact from the repository root:
 
 ```sh
-npm run verify:provider -- https://host/path/manifest.json
+npm ci --ignore-scripts
+npm run build:provider-site -- https://provider.example/dsh-gate
 ```
+
+The default output is `artifacts/provider-site/`. The builder accepts only a
+credential-free HTTPS base URL without a query or fragment and only writes to a
+child of the ignored `artifacts/` directory. It parses both catalog documents,
+rewrites `transport.endpoint` to the exact `<base-url>/v1/plugins` contract,
+and emits a Cloudflare Pages `_headers` file that declares both documents as
+`application/json; charset=utf-8` with `nosniff`.
+
+For Cloudflare Pages, use the same command as the project build command and set
+the build output directory to `artifacts/provider-site`. Replace the example
+base URL with the final public Pages URL before deploying. This repository does
+not contain Cloudflare credentials and does not claim a Cloudflare deployment;
+the generated artifact is only a prepared deployment option.
+
+After deployment, verify it from outside the hosting control plane:
+
+```sh
+npm run verify:provider -- https://provider.example/dsh-gate/manifest.json
+```
+
+Only after that command passes and Desktop has consumed the same URL should an
+operator share the manifest URL. In Desktop, the intended opt-in path is the
+Community Market source screen: add a standard source, enter the verified
+manifest URL, review it, and explicitly enable it. Do not use the current
+GitHub Pages URL for this step because its extensionless response still has the
+wrong media type.
 
 The Desktop host remains responsible for source selection, caching, install
 confirmation, and profile changes. DSH Gate only supplies evidence. `FAIL`
@@ -102,6 +146,12 @@ GitHub stars and catalog item counts are ecosystem signals, not proof that the
 verification layer is being used. The project should not claim adoption until
 at least one independent plugin repository and one independent catalog or
 Desktop consumer use the output.
+
+For the first public launch, report those integration counts and links rather
+than catalog size. A useful launch example shows one failing or warning plugin
+before the fix, the code change that resolves the result, and the passing
+Receipt produced by the Action. That demonstrates a prevented compatibility or
+permission problem; a screenshot of a large catalog does not.
 
 ## Current boundary
 

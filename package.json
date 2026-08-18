@@ -19,9 +19,10 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test tests/verifier.test.mjs tests/matrix.test.mjs tests/catalog-contract.test.mjs tests/provider-smoke.test.mjs",
+    "test": "npm run build && node --test tests/verifier.test.mjs tests/matrix.test.mjs tests/catalog-contract.test.mjs tests/provider-smoke.test.mjs tests/provider-site.test.mjs",
     "check": "npm run build && npm test",
     "verify:fixture": "npm run build && node dist/cli/main.js verify fixtures/public/healthy-plugin --smoke",
+    "build:provider-site": "node scripts/build-provider-site.mjs",
     "verify:provider": "node scripts/provider-smoke.mjs"
   },
   "engines": {
