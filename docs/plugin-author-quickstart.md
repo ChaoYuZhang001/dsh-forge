@@ -23,7 +23,7 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.3
+      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.4
         with:
           target: ${{ github.event.pull_request.head.repo.html_url || github.event.repository.html_url }}
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -98,7 +98,7 @@ under standard semver rules.
 Set `package-path` when more than one DSH plugin exists:
 
 ```yaml
-      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.3
+      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.4
         with:
           target: ${{ github.event.pull_request.head.repo.html_url || github.event.repository.html_url }}
           ref: ${{ github.event.pull_request.head.sha || github.sha }}

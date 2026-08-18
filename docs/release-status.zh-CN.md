@@ -4,13 +4,13 @@
 
 ## 当前阶段
 
-`v0.4.0-alpha.3` 是 Alpha 预览版本，不是稳定版。当前公开 Release：
+`v0.4.0-alpha.4` 是 Alpha 预览版本，不是稳定版。当前公开 Release：
 
-- [v0.4.0-alpha.3](https://github.com/ChaoYuZhang001/dsh-gate/releases/tag/v0.4.0-alpha.3)
-- [主 CI run 32103258517](https://github.com/ChaoYuZhang001/dsh-gate/actions/runs/32103258517)，所有 job 成功
-- [兼容性矩阵 run 32103258531](https://github.com/ChaoYuZhang001/dsh-gate/actions/runs/32103258531)，成功
+- [v0.4.0-alpha.4](https://github.com/ChaoYuZhang001/dsh-gate/releases/tag/v0.4.0-alpha.4)
+- [主 CI run 32103569674](https://github.com/ChaoYuZhang001/dsh-gate/actions/runs/32103569674)，所有 job 成功
+- [兼容性矩阵 run 32103569645](https://github.com/ChaoYuZhang001/dsh-gate/actions/runs/32103569645)，成功
 
-`main` 上已有尚未打新 Release tag 的 Provider 安全加固提交（`9f7a67c`、`75e2040`）；它们属于 `Unreleased`，不能写成 `v0.4.0-alpha.3` 已发布资产的一部分。
+`v0.4.0-alpha.4` 已包含 Provider 的本地/私网目标拒绝、DNS 解析检查和对应测试；线上 Provider 仍然是独立的发布门槛。
 
 ## 已交付
 

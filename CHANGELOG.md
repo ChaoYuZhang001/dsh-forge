@@ -1,11 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.4.0-alpha.4 - 2026-08-18
 
 - Hardened the Provider smoke to reject local, private, link-local, and mapped IPv4 destinations in HTTPS URLs and redirects.
 - Added DNS resolution checks for real network Provider requests so public hostnames that resolve to private addresses fail closed.
-
-## 0.4.0-alpha.3 - 2026-08-18
 
 - Added a fail-closed live Provider smoke for HTTPS, JSON media types, response limits, schema conformance, and semantic limits.
 - Wired the smoke into the Pages deployment and documented the current extensionless-file MIME incompatibility with Desktop.

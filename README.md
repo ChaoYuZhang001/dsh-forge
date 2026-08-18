@@ -150,7 +150,7 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.3
+      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.4
         with:
           target: ${{ github.event.pull_request.head.repo.html_url || github.event.repository.html_url }}
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -179,7 +179,7 @@ See [SECURITY.md](SECURITY.md), [CONTRIBUTING.md](CONTRIBUTING.md), and [docs/re
 
 ## Status
 
-`v0.4.0-alpha.3` adds the fail-closed live Provider smoke and its cross-platform tests on top of the alpha2 compatibility matrix, pinned Desktop wire schemas, strict conformance fixtures, and adoption documentation. Follow-up `Unreleased` commits also reject local/private Provider destinations and DNS resolutions. The Pages deployment remains diagnostic because GitHub Pages does not serve the standard extensionless endpoint with a JSON media type. DSH Gate does not install plugins, mutate a DSH profile, or claim a live catalog endpoint until the HTTPS Provider smoke passes.
+`v0.4.0-alpha.4` adds the fail-closed live Provider smoke, local/private destination rejection, DNS resolution checks, and cross-platform tests on top of the alpha2 compatibility matrix, pinned Desktop wire schemas, strict conformance fixtures, and adoption documentation. The Pages deployment remains diagnostic because GitHub Pages does not serve the standard extensionless endpoint with a JSON media type. DSH Gate does not install plugins, mutate a DSH profile, or claim a live catalog endpoint until the HTTPS Provider smoke passes.
 
 ## License
 

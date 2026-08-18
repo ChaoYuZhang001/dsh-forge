@@ -50,7 +50,7 @@ function sampleMatrix() {
   return {
     schemaVersion: '0.1',
     generatedAt: '2026-08-18T00:00:00.000Z',
-    generator: { name: 'dsh-gate', version: '0.4.0-alpha.3' },
+    generator: { name: 'dsh-gate', version: '0.4.0-alpha.4' },
     baseline: { dshVersion: '0.1.0-rc.7', platform: 'linux-x64' },
     counts: { pass: 1, warn: 0, fail: 0, error: 0 },
     entries: [{
@@ -63,7 +63,7 @@ function sampleMatrix() {
       receipt: {
         schemaVersion: '0.3',
         generatedAt: '2026-08-18T00:00:00.000Z',
-        verifier: { name: 'dsh-gate', version: '0.4.0-alpha.3' },
+        verifier: { name: 'dsh-gate', version: '0.4.0-alpha.4' },
         target: {
           kind: 'github',
           reference: 'https://github.com/example/sample-plugin',

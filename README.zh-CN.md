@@ -33,7 +33,7 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.3
+      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.4
         with:
           target: ${{ github.event.pull_request.head.repo.html_url || github.event.repository.html_url }}
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -162,9 +162,8 @@ npm run verify:provider -- https://provider.example/dsh-gate/manifest.json
 
 ## 当前状态
 
-当前版本为 `v0.4.0-alpha.3`；`main` 上还有尚未打 tag 的 `Unreleased` Provider 安全加固。
-GitHub Action、兼容性矩阵、Desktop 1.0.0 线协议 Schema、严格合约测试和 fail-closed
-Provider smoke 已完成。符合 JSON 媒体类型的线上
+当前版本为 `v0.4.0-alpha.4`。GitHub Action、兼容性矩阵、Desktop 1.0.0 线协议
+Schema、严格合约测试和包含本地/私网目标与 DNS 检查的 fail-closed Provider smoke 已完成。符合 JSON 媒体类型的线上
 Provider、npm 发布和独立外部插件采用仍是单独的发布门禁，尚未完成时不会宣称可用。
 
 ## License
