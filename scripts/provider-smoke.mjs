@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises'
+import net from 'node:net'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import Ajv2020 from 'ajv/dist/2020.js'
@@ -12,6 +13,79 @@ const JSON_CONTENT_TYPE = /^(?:application\/json|application\/[^;]+\+json)(?:;|$
 const sourceSchemaUrl = new URL('../schemas/desktop-market/catalog-source.schema.json', import.meta.url)
 const pageSchemaUrl = new URL('../schemas/desktop-market/catalog-provider-page.schema.json', import.meta.url)
 
+function parseIpv4(value) {
+  const parts = value.split('.')
+  if (parts.length !== 4 || parts.some(part => !/^\d{1,3}$/u.test(part))) return undefined
+  const octets = parts.map(Number)
+  if (octets.some(octet => octet > 255)) return undefined
+  return octets
+}
+
+function isUnsafeIpv4(value) {
+  const octets = parseIpv4(value)
+  if (octets === undefined) return false
+  const [first, second] = octets
+  return first === 0 || first === 10 || first === 127 ||
+    first === 169 && second === 254 ||
+    first === 172 && second >= 16 && second <= 31 ||
+    first === 192 && second === 168 ||
+    first === 100 && second >= 64 && second <= 127 ||
+    first === 198 && second >= 18 && second <= 19 ||
+    first >= 224
+}
+
+function parseIpv6(value) {
+  let normalized = value.toLowerCase().split('%', 1)[0]
+  if (normalized.includes('.')) {
+    const separator = normalized.lastIndexOf(':')
+    const octets = parseIpv4(normalized.slice(separator + 1))
+    if (separator < 0 || octets === undefined) return undefined
+    const first = ((octets[0] << 8) | octets[1]).toString(16)
+    const second = ((octets[2] << 8) | octets[3]).toString(16)
+    normalized = `${normalized.slice(0, separator + 1)}${first}:${second}`
+  }
+
+  const sections = normalized.split('::')
+  if (sections.length > 2) return undefined
+  const parseSection = section => {
+    if (!section) return []
+    const values = section.split(':').map(part => Number.parseInt(part, 16))
+    return values.some(valuePart => !Number.isInteger(valuePart) || valuePart < 0 || valuePart > 0xffff)
+      ? undefined
+      : values
+  }
+  const left = parseSection(sections[0])
+  const right = parseSection(sections[1] ?? '')
+  if (left === undefined || right === undefined) return undefined
+  const missing = 8 - left.length - right.length
+  if (sections.length === 1 && missing !== 0 || sections.length === 2 && missing < 1) return undefined
+  return [...left, ...Array.from({ length: missing }, () => 0), ...right]
+}
+
+function isUnsafeIpv6(value) {
+  const sections = parseIpv6(value)
+  if (sections === undefined) return false
+  const bytes = sections.flatMap(section => [section >> 8, section & 0xff])
+  const allZero = bytes.every(byte => byte === 0)
+  const loopback = allZero || bytes.slice(0, 15).every(byte => byte === 0) && bytes[15] === 1
+  const uniqueLocal = (bytes[0] & 0xfe) === 0xfc
+  const linkLocal = bytes[0] === 0xfe && (bytes[1] & 0xc0) === 0x80
+  const multicast = bytes[0] === 0xff
+  const mappedIpv4 = bytes.slice(0, 10).every(byte => byte === 0) && bytes[10] === 0xff && bytes[11] === 0xff
+  const compatibleIpv4 = bytes.slice(0, 12).every(byte => byte === 0)
+  const tail = bytes.slice(12).join('.')
+  return loopback || uniqueLocal || linkLocal || multicast ||
+    mappedIpv4 && isUnsafeIpv4(tail) ||
+    compatibleIpv4 && isUnsafeIpv4(tail)
+}
+
+function isUnsafeHostname(value) {
+  const hostname = value.replace(/^\[|\]$/gu, '').toLowerCase().replace(/\.$/u, '')
+  if (hostname === 'localhost' || hostname.endsWith('.localhost') || hostname.endsWith('.local')) return true
+  const addressType = net.isIP(hostname)
+  return addressType === 4 ? isUnsafeIpv4(hostname) : addressType === 6 && isUnsafeIpv6(hostname)
+}
+
 function checkedHttpsUrl(value, label) {
   let url
   try {
@@ -21,6 +95,9 @@ function checkedHttpsUrl(value, label) {
   }
   if (url.protocol !== 'https:' || url.username || url.password || url.hash || url.port && url.port !== '443') {
     throw new Error(`${label} must be credential-free HTTPS without a fragment or non-standard port.`)
+  }
+  if (isUnsafeHostname(url.hostname)) {
+    throw new Error(`${label} must not target localhost or a private address.`)
   }
   return url
 }

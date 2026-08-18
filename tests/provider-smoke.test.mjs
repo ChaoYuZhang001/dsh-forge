@@ -41,3 +41,33 @@ test('provider smoke rejects wrong media types, encodings, and duplicate items',
   assert.throws(() => validatePageSemantics({ items: [{ id: 'same' }, { id: 'same' }] }, 20), /duplicate item IDs/u)
   assert.throws(() => validatePageSemantics({ items: [{ id: 'one' }, { id: 'two' }] }, 1), /effective limit/u)
 })
+
+test('provider smoke rejects local and private redirect targets', async () => {
+  const signal = new AbortController().signal
+  for (const target of [
+    'https://localhost/v1/plugins',
+    'https://127.0.0.1/v1/plugins',
+    'https://10.0.0.1/v1/plugins',
+    'https://172.16.0.1/v1/plugins',
+    'https://192.168.1.1/v1/plugins',
+    'https://[::1]/v1/plugins',
+    'https://[fd00::1]/v1/plugins',
+    'https://[fe80::1]/v1/plugins',
+    'https://[::ffff:127.0.0.1]/v1/plugins'
+  ]) {
+    await assert.rejects(
+      fetchJson(target, signal, 0, async () => new Response('{}', {
+        headers: { 'content-type': 'application/json' }
+      })),
+      /localhost or a private address/u
+    )
+  }
+
+  await assert.rejects(
+    fetchJson('https://plugins.example/v1/plugins', signal, 0, async () => new Response(null, {
+      status: 302,
+      headers: { location: 'https://169.254.169.254/v1/plugins' }
+    })),
+    /localhost or a private address/u
+  )
+})
