@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'catalog/**'
+      - 'scripts/build-provider-site.mjs'
+      - 'package.json'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -35,20 +37,12 @@ jobs:
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
 
       - name: Build static Provider site
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p site/v1
-          cp catalog/manifest.json site/manifest.json
-          cp catalog/v1/plugins site/v1/plugins
-          : > site/.nojekyll
-          test "$(node -e "const m=require('./site/manifest.json'); process.stdout.write(m.transport.endpoint)")" = "https://chaoyuzhang001.github.io/dsh-gate/v1/plugins"
-          node -e "JSON.parse(require('node:fs').readFileSync('site/manifest.json', 'utf8')); JSON.parse(require('node:fs').readFileSync('site/v1/plugins', 'utf8'))"
+        run: npm run build:provider-site -- https://chaoyuzhang001.github.io/dsh-gate artifacts/pages
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
-          path: site
+          path: artifacts/pages
 
       - name: Deploy Pages artifact
         id: deployment
