@@ -71,6 +71,8 @@ GitHub Pages 当前把无扩展名的 `/v1/plugins` 返回为 `application/octet
 - DSH Desktop/Forge 的社区市场或开发者频道，发布 Provider 消费说明；
 - DSH Gate 自己的 Release notes，附上一个真实 Receipt 和完整 workflow 链接。
 
+首批联系对象和公开筛选依据见[采用候选名单](adoption-targets.zh-CN.md)。
+
 不要群发未经请求的 PR，不要把 `pass` 写成“安全认证”，也不要在 live Provider 尚未通过时宣传“打开 Desktop 就能安装”。
 
 ### 2. 用一个可复现案例证明价值

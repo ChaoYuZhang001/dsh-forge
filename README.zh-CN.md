@@ -50,6 +50,9 @@ Summary，`dsh-gate-receipt.json` 作为工件保留 14 天，并在结果为 `f
 推广顺序、发布文案和采用门槛见
 [发布与采用手册](docs/launch-kit.zh-CN.md)。
 
+首批插件作者和市场候选见
+[采用候选名单](docs/adoption-targets.zh-CN.md)。
+
 ## 它解决什么问题
 
 DSH Gate 在插件进入真实 Profile 之前检查：
