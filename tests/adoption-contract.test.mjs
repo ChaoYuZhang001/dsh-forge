@@ -7,7 +7,7 @@ const packageJson = JSON.parse(await readFile(new URL('package.json', root), 'ut
 const releaseRef = `ChaoYuZhang001/dsh-gate@v${packageJson.version}`
 
 async function text(path) {
-  return readFile(new URL(path, root), 'utf8')
+  return readFile(new URL(path, root), 'utf8').then(source => source.replace(/\r\n/gu, '\n'))
 }
 
 test('keeps public Action adoption examples on the current release', async () => {
