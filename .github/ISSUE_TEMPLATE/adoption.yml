@@ -1,0 +1,49 @@
+name: Adopt DSH Gate in a plugin
+description: Request help adding the read-only DSH Gate Action to a public plugin repository.
+title: "[adoption] "
+labels: [plugin, ci, help wanted, "status:needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is for maintainers of public DeepSeek Harness plugins. Do not paste tokens, cookies, DSH Profiles, transcripts, private plugin source, or raw logs with machine paths.
+  - type: input
+    id: repository
+    attributes:
+      label: Public plugin repository
+      description: Enter the canonical public GitHub repository URL.
+      placeholder: https://github.com/owner/plugin
+    validations:
+      required: true
+  - type: input
+    id: package-path
+    attributes:
+      label: Plugin package path
+      description: Leave blank for a root package. Monorepositories should identify the plugin directory or package.json path.
+      placeholder: packages/my-plugin
+  - type: input
+    id: dsh-baseline
+    attributes:
+      label: DSH baseline
+      description: Enter the DSH version that the plugin currently targets.
+      placeholder: 0.1.0-rc.7
+    validations:
+      required: true
+  - type: checkboxes
+    id: authorization
+    attributes:
+      label: Maintainer authorization
+      options:
+        - label: I maintain this repository or I am authorized by its maintainer to request the integration.
+          required: true
+        - label: The repository and selected package are public and require no credentials or private fixtures to verify.
+          required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Receipt boundaries
+      options:
+        - label: I understand that PASS, WARN, or FAIL is compatibility and provenance evidence, not a security audit or endorsement.
+          required: true
+        - label: I agree to keep workflow permissions at contents read and to review the exact release tag or immutable commit before merging.
+          required: true

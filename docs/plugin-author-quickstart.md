@@ -108,3 +108,11 @@ Set `package-path` when more than one DSH plugin exists:
 ```
 
 DSH Gate fails on ambiguous discovery instead of choosing a package silently.
+
+## Request integration help
+
+Maintainers of public plugin repositories can
+[open an adoption request](https://github.com/ChaoYuZhang001/dsh-gate/issues/new?template=adoption.yml).
+The form requires maintainer authorization and a public repository URL. Do not
+include credentials, DSH Profiles, transcripts, private plugin source, or raw
+logs with machine paths.

@@ -34,3 +34,16 @@ test('keeps the copyable workflow read-only and bound to immutable source input'
   assert.doesNotMatch(workflow, /secrets\./u)
   assert.doesNotMatch(workflow, /write/u)
 })
+
+test('keeps self-service adoption consented and public-only', async () => {
+  const form = await text('.github/ISSUE_TEMPLATE/adoption.yml')
+  const quickstart = await text('docs/plugin-author-quickstart.md')
+
+  assert.match(form, /labels: \[plugin, ci, help wanted, "status:needs-triage"\]/u)
+  assert.match(form, /label: Public plugin repository/u)
+  assert.match(form, /I maintain this repository or I am authorized by its maintainer/u)
+  assert.match(form, /require no credentials or private fixtures/u)
+  assert.match(form, /not a security audit or endorsement/u)
+  assert.match(form, /workflow permissions at contents read/u)
+  assert.match(quickstart, /issues\/new\?template=adoption\.yml/u)
+})
