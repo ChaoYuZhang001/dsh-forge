@@ -21,6 +21,8 @@ See the [60-second plugin-author guide](docs/plugin-author-quickstart.md) for
 the workflow, badge, result meanings, and optional `dsh.gate` declaration.
 The [launch and adoption kit](docs/launch-kit.zh-CN.md) contains the rollout
 sequence, user paths, and evidence gates for public promotion.
+See the [alpha announcement](https://github.com/ChaoYuZhang001/dsh-gate/discussions/21)
+for the maintainer call to action and current release boundaries.
 
 ## What it does
 
