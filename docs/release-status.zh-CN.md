@@ -7,12 +7,16 @@
 `v0.4.0-alpha.3` 是 Alpha 预览版本，不是稳定版。当前公开 Release：
 
 - [v0.4.0-alpha.3](https://github.com/ChaoYuZhang001/dsh-gate/releases/tag/v0.4.0-alpha.3)
-- [主 CI run 32101439270](https://github.com/ChaoYuZhang001/dsh-gate/actions/runs/32101439270)，所有 job 成功
+- [主 CI run 32103258517](https://github.com/ChaoYuZhang001/dsh-gate/actions/runs/32103258517)，所有 job 成功
+- [兼容性矩阵 run 32103258531](https://github.com/ChaoYuZhang001/dsh-gate/actions/runs/32103258531)，成功
+
+`main` 上已有尚未打新 Release tag 的 Provider 安全加固提交（`9f7a67c`、`75e2040`）；它们属于 `Unreleased`，不能写成 `v0.4.0-alpha.3` 已发布资产的一部分。
 
 ## 已交付
 
 - GitHub Action 可对公开 DSH 插件执行兼容性、权限和来源检查，并生成脱敏 Receipt。
 - 兼容性矩阵、Desktop Provider 合约、严格 Fixture 和 fail-closed Provider smoke 已纳入仓库和 CI。
+- Provider smoke 会拒绝本地/私网重定向，并检查真实网络请求的 DNS 解析结果。
 - 已提供插件作者快速开始、中文采用手册和自助采用申请入口。
 - 仓库是公开的社区项目，不是 DeepSeek 官方产品；Receipt 不是安全审计、认证或官方背书。
 
