@@ -151,6 +151,10 @@ verification layer is being used. The project should not claim adoption until
 at least one independent plugin repository and one independent catalog or
 Desktop consumer use the output.
 
+For the practical promotion sequence, ready-to-use announcement copy, and
+explicit "do not claim yet" boundaries, see the
+[Chinese launch and adoption kit](launch-kit.zh-CN.md).
+
 For the first public launch, report those integration counts and links rather
 than catalog size. A useful launch example shows one failing or warning plugin
 before the fix, the code change that resolves the result, and the passing
