@@ -1,5 +1,7 @@
 # DSH Gate 发布与采用手册
 
+> 面向插件作者、市场维护者和 Desktop 集成者；普通用户无需单独安装 DSH Gate。
+
 这不是“再做一个插件市场”。DSH Gate 的一句话定位是：
 
 > 在 DeepSeek Harness 插件进入真实 Profile 或 Desktop 市场之前，给出可复核的兼容性、权限和源码来源证据。
@@ -70,8 +72,6 @@ GitHub Pages 当前把无扩展名的 `/v1/plugins` 返回为 `application/octet
 - 已公开的 DSH 插件仓库，在获得维护者同意后提交一个小型集成 PR；
 - DSH Desktop/Forge 的社区市场或开发者频道，发布 Provider 消费说明；
 - DSH Gate 自己的 Release notes，附上一个真实 Receipt 和完整 workflow 链接。
-
-首批联系对象和公开筛选依据见[采用候选名单](adoption-targets.zh-CN.md)。
 
 不要群发未经请求的 PR，不要把 `pass` 写成“安全认证”，也不要在 live Provider 尚未通过时宣传“打开 Desktop 就能安装”。
 
