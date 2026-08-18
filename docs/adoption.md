@@ -43,13 +43,17 @@ jobs:
     steps:
       - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.3
         with:
-          target: .
+          target: ${{ github.event.pull_request.head.repo.html_url || github.event.repository.html_url }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          smoke: 'false'
           github-token: ${{ github.token }}
 ```
 
-The check is intentionally advisory for `warn` and blocking for `fail`. A
-project can keep the Receipt artifact while disabling uploads if its own CI
-retention policy requires that.
+The workflow selects the exact public pull-request head or pushed commit, so the
+Receipt records immutable commit and package-blob provenance without checking
+out or executing plugin code. The check is intentionally advisory for `warn`
+and blocking for `fail`. A project can keep the Receipt artifact while
+disabling uploads if its own CI retention policy requires that.
 
 ## Market and Desktop operators
 
