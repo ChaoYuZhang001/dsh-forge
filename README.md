@@ -1,8 +1,24 @@
 # DSH Gate
 
+[English](README.md) | [中文](README.zh-CN.md)
+
+[![CI](https://github.com/ChaoYuZhang001/dsh-gate/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ChaoYuZhang001/dsh-gate/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/ChaoYuZhang001/dsh-gate?include_prereleases&sort=semver)](https://github.com/ChaoYuZhang001/dsh-gate/releases)
+[![License](https://img.shields.io/github/license/ChaoYuZhang001/dsh-gate)](LICENSE)
+
 Static compatibility and permission verification for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugins.
 
 > DSH Gate is a community developer tool, not an official DeepSeek product. A passing receipt is not a security audit.
+
+## Plugin authors: start here
+
+Add the ready-to-copy [`dsh-gate.yml`](examples/github-actions/dsh-gate.yml)
+workflow to `.github/workflows/dsh-gate.yml` in a public DSH plugin repository.
+The next pull request receives a check Summary and a sanitized JSON Receipt;
+no DSH profile or DSH Gate installation is required.
+
+See the [60-second plugin-author guide](docs/plugin-author-quickstart.md) for
+the workflow, badge, result meanings, and optional `dsh.gate` declaration.
 
 ## What it does
 
@@ -128,14 +144,26 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.3
         with:
-          target: .
+          target: ${{ github.event.pull_request.head.repo.html_url || github.event.repository.html_url }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          smoke: 'false'
           github-token: ${{ github.token }}
 ```
 
-The Action writes a check table to the workflow Summary, uploads a sanitized `dsh-gate-receipt.json` artifact for 14 days, and fails on a `fail` Receipt. Pin the full release tag or commit SHA in production workflows. Set `upload-receipt: 'false'` only when the workflow has its own artifact policy.
+The Action reads the exact public pull-request head or pushed commit as remote
+data, records immutable commit and package-blob provenance, writes a check table
+to the workflow Summary, uploads a sanitized `dsh-gate-receipt.json` artifact
+for 14 days, and fails on a `fail` Receipt. It does not need a checkout and does
+not run remote package scripts. Pin the full release tag or commit SHA in
+production workflows. Set `upload-receipt: 'false'` only when the workflow has
+its own artifact policy.
+
+The complete file is available at
+[`examples/github-actions/dsh-gate.yml`](examples/github-actions/dsh-gate.yml).
+After the first run, add the repository-specific status badge described in the
+[plugin-author guide](docs/plugin-author-quickstart.md).
 
 ## Repository boundary
 

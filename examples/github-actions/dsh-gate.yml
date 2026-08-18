@@ -1,0 +1,20 @@
+name: DSH plugin compatibility
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ChaoYuZhang001/dsh-gate@v0.4.0-alpha.3
+        with:
+          target: ${{ github.event.pull_request.head.repo.html_url || github.event.repository.html_url }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          smoke: 'false'
+          github-token: ${{ github.token }}
