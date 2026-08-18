@@ -1,6 +1,8 @@
 # DSH Gate 发布与采用手册
 
 > 面向插件作者、市场维护者和 Desktop 集成者；普通用户无需单独安装 DSH Gate。
+>
+> 本文是长期公开的采用指南。当前版本、线上 Provider 和外部采用状态以[发布状态](release-status.zh-CN.md)和具体 GitHub 证据为准。
 
 这不是“再做一个插件市场”。DSH Gate 的一句话定位是：
 
@@ -54,7 +56,7 @@ jobs:
 3. 在同一网络边界运行 `npm run verify:provider -- https://<host>/<base>/manifest.json`。
 4. 让 Desktop 的 Community Market source 使用已验证的 manifest URL，并记录一次实际消费证据。
 
-GitHub Pages 当前把无扩展名的 `/v1/plugins` 返回为 `application/octet-stream`，因此不能作为公开市场源。没有通过匿名 HTTPS smoke 和 Desktop 消费验证前，不要发布 manifest URL。
+线上 Provider 是否可用不由本地工件生成成功决定。发布 manifest URL 前，应先查看[发布状态](release-status.zh-CN.md)，确认匿名 HTTPS smoke 和 Desktop 实际消费均已通过。
 
 ### 普通用户
 
@@ -122,11 +124,6 @@ Provider 通过匿名 HTTPS JSON smoke 和 Desktop 实际消费后，发布一�
 
 发布后只跟踪与采用相关的公开指标：独立插件采用数、合并 PR 数、Provider 消费者数、重复验证运行数，以及被作者修复的 `warn`/`fail` 数。Stars、Forks 和目录条目数只能作为辅助信号。
 
-## 当前不能宣称的内容
+## 文档状态边界
 
-- 不能宣称 npm 已发布：当前 npm registry 没有 `dsh-gate` 包。
-- 不能宣称 live Provider 已可用：GitHub Pages 的 MIME 合约仍失败。
-- 不能宣称生态已采用：尚无独立插件仓库合并 Action。
-- 不能宣称安全认证、官方 DeepSeek 背书或自动安装能力。
-
-这些不是宣传措辞问题，而是发布证据尚未闭环的问题。
+本文只描述稳定的公开采用流程、发布门槛和对外文案。Alpha 当前是否满足这些门槛，以及哪些能力可以对外宣传，统一见[发布状态](release-status.zh-CN.md)；发布公告应同时附上具体 Release、workflow、Provider smoke 或采用 PR 证据。

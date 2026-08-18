@@ -23,6 +23,8 @@ The [launch and adoption kit](docs/launch-kit.zh-CN.md) contains the rollout
 sequence, user paths, and evidence gates for public promotion.
 See the [alpha announcement](https://github.com/ChaoYuZhang001/dsh-gate/discussions/21)
 for the maintainer call to action and current release boundaries.
+The current release gates are tracked in the
+[Chinese release status](docs/release-status.zh-CN.md).
 
 ## What it does
 

@@ -76,12 +76,11 @@ manifest URL to users until those URLs have been checked from the same network
 boundary as Desktop.
 
 The included workflow calls the same site builder, deploys its artifact, and
-then runs the anonymous HTTPS smoke used for release verification. GitHub Pages
-does not apply the generated `_headers` file and serves extensionless files as
-`application/octet-stream`, so the standard `/v1/plugins` endpoint currently
-fails closed after deployment. Use a host or edge configuration that can set
-`Content-Type: application/json`; do not weaken the Desktop contract or rename
-the standard endpoint to make a static host pass.
+then runs the anonymous HTTPS smoke used for release verification. The current
+Provider deployment status and its open hosting gate are tracked in the
+[Chinese release status](release-status.zh-CN.md). Use a host or edge
+configuration that can set `Content-Type: application/json`; do not weaken the
+Desktop contract or rename the standard endpoint to make a static host pass.
 
 Prepare a static site artifact from the repository root:
 
@@ -163,7 +162,8 @@ permission problem; a screenshot of a large catalog does not.
 
 ## Current boundary
 
-The repository currently contains a reviewable static preview and a verified
-Desktop contract fixture. npm publication, a live HTTPS Provider, and an
-external plugin adopting the Action are separate release steps and must not be
-described as complete until independently verified.
+The repository contains a reviewable static preview and a verified Desktop
+contract fixture. npm publication, a live HTTPS Provider, and an external
+plugin adopting the Action are separate release steps; their current evidence
+and state are maintained in the [Chinese release status](release-status.zh-CN.md)
+and the linked GitHub issues.

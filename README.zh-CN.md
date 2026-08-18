@@ -52,6 +52,7 @@ Summary，`dsh-gate-receipt.json` 作为工件保留 14 天，并在结果为 `f
 
 面向维护者的 Alpha 接入说明见
 [GitHub Announcement](https://github.com/ChaoYuZhang001/dsh-gate/discussions/21)。
+当前版本和未完成发布门槛见[发布状态](docs/release-status.zh-CN.md)。
 
 ## 它解决什么问题
 
