@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises'
+import { lookup } from 'node:dns/promises'
 import net from 'node:net'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -8,6 +9,7 @@ import addFormats from 'ajv-formats'
 const MAX_BODY_BYTES = 2 * 1024 * 1024
 const MAX_REDIRECTS = 3
 const REQUEST_TIMEOUT_MS = 30_000
+const DNS_LOOKUP_TIMEOUT_MS = 5_000
 const JSON_CONTENT_TYPE = /^(?:application\/json|application\/[^;]+\+json)(?:;|$)/iu
 
 const sourceSchemaUrl = new URL('../schemas/desktop-market/catalog-source.schema.json', import.meta.url)
@@ -102,9 +104,27 @@ function checkedHttpsUrl(value, label) {
   return url
 }
 
+async function assertPublicProviderHost(url, signal, fetchImplementation) {
+  if (fetchImplementation !== fetch || net.isIP(url.hostname) !== 0) return
+  if (signal.aborted) throw signal.reason ?? new Error('Provider request was aborted.')
+
+  const timeout = new Promise((_, reject) => {
+    const timer = setTimeout(() => reject(new Error(`DNS lookup timed out for ${url.hostname}.`)), DNS_LOOKUP_TIMEOUT_MS)
+    timer.unref?.()
+  })
+  const addresses = await Promise.race([
+    lookup(url.hostname, { all: true, verbatim: true }),
+    timeout
+  ])
+  if (!addresses.length || addresses.some(record => isUnsafeHostname(record.address))) {
+    throw new Error(`Provider URL ${url.href} resolved to a local or private address.`)
+  }
+}
+
 export async function fetchJson(start, signal, redirectCount = 0, fetchImplementation = fetch) {
   if (redirectCount > MAX_REDIRECTS) throw new Error(`Too many redirects while fetching ${start}.`)
   const url = checkedHttpsUrl(start, 'Provider URL')
+  await assertPublicProviderHost(url, signal, fetchImplementation)
   const response = await fetchImplementation(url, {
     headers: {
       accept: 'application/json',
